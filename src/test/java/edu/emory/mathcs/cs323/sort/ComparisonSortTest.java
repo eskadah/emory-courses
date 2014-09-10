@@ -61,9 +61,9 @@ public class ComparisonSortTest
 		}
 	}
 	
-//	@Test
+	@Test
 	@SuppressWarnings("unchecked")
-	public void testSpeed()
+	public void compareSpeeds()
 	{
 		SortSpeed comp = new SortSpeed();
 		comp.printTotal(1000, 100, 1000, 100, 1, new Random(0), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
@@ -71,7 +71,7 @@ public class ComparisonSortTest
 	
 //	@Test
 	@SuppressWarnings("unchecked")
-	public void testOperations()
+	public void countOperations()
 	{
 		SortOperation comp = new SortOperation();
 		comp.printTotal(1000, 100, 1000, 100, 2, new Random(0), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
