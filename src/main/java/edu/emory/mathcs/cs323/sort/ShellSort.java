@@ -18,7 +18,7 @@ package edu.emory.mathcs.cs323.sort;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class ShellSort<T extends Comparable<T>> extends AbstractSort<T>
+public class ShellSort<T extends Comparable<T>> extends InsertionSort<T>
 {
 	@Override
 	public void sort(T[] array)
@@ -28,10 +28,7 @@ public class ShellSort<T extends Comparable<T>> extends AbstractSort<T>
 		
 		while (h >= 1)
 		{
-			for (int i=h; i<N; i++)
-				for (int j=i; j>=h && compareTo(array, j, j-h) < 0; j-=h)
-					swap(array, j, j-h);
-			
+			sort(array, h);
 			h = getNextH(h);
 		}
 	}

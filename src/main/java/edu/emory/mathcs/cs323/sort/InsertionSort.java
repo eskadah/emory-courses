@@ -25,10 +25,16 @@ public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T>
 	@Override
 	public void sort(T[] array)
 	{
-		int i, j, len = array.length;
+		sort(array, 1);
+	}
+	
+	protected void sort(T[] array, final int h)
+	{
+		final int len = array.length; 
+		int i, j;
 		
-		for (i=1; i<len; i++)
-			for (j=i; j>0 && compareTo(array, j, j-1) < 0; j--)
-				swap(array, j, j-1);
+		for (i=h; i<len; i++)
+			for (j=i; j>=h && compareTo(array, j, j-h) < 0; j-=h)
+				swap(array, j, j-h);
 	}
 }

@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.Random;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.emory.mathcs.utils.AbstractEngineComparer;
@@ -62,6 +63,7 @@ public class ComparisonSortTest
 	}
 	
 	@Test
+	@Ignore
 	@SuppressWarnings("unchecked")
 	public void compareSpeeds()
 	{
@@ -69,7 +71,8 @@ public class ComparisonSortTest
 		comp.printTotal(1000, 100, 1000, 100, 1, new Random(0), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
 	}
 	
-//	@Test
+	@Test
+	@Ignore
 	@SuppressWarnings("unchecked")
 	public void countOperations()
 	{
