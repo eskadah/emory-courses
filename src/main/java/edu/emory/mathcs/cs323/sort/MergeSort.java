@@ -25,7 +25,7 @@ import edu.emory.mathcs.utils.MathUtils;
  */
 public class MergeSort<T extends Comparable<T>> extends AbstractSort<T>
 {
-	private T[] l_temp;
+	private T[] l_temp;	// n-extra spaces
 	
 	@Override
 	public void sort(T[] array)
@@ -60,9 +60,9 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSort<T>
 		
 		for (int k=beginIndex; k<=endIndex; k++)
 		{
-			if (fst > middleIndex)		// all keys in the 1st half are visited   
+			if (fst > middleIndex)						// all keys left in the 1st half
 				assign(array, k, l_temp[snd++]);
-			else if (snd > endIndex)	// all keys in the 2nd half are visited
+			else if (snd > endIndex)					// all keys left in the 2nd half
 				assign(array, k, l_temp[fst++]);
 			else if (compareTo(l_temp, fst, snd) < 0)	// 1st key < 2nd key
 				assign(array, k, l_temp[fst++]);

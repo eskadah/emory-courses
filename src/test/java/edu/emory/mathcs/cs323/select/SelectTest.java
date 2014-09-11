@@ -54,13 +54,13 @@ public class SelectTest
 	@SuppressWarnings("unchecked")
 	public void testSpeed()
 	{
-		testSpeed(new DumbSelect<Integer>(), new SmartSelect<Integer>());
+		testSpeed(1000, new DumbSelect<Integer>(), new SmartSelect<Integer>());
 	}
 	
 	@SuppressWarnings("unchecked")
-	void testSpeed(final AbstractSelect<Integer>... ss)
+	void testSpeed(final int SIZE, final AbstractSelect<Integer>... ss)
 	{
-		final int ITER = 1000, SIZE = 1000, MAX_K = 100, LENGTH = ss.length;
+		final int ITER = 1000, MAX_K = 100, LENGTH = ss.length;
 		List<Integer> list = DSUtils.getRandomIntegerList(new Random(1), SIZE);
 		long[][] times = new long[LENGTH][MAX_K];
 

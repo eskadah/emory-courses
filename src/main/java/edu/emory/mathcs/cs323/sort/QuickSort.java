@@ -50,8 +50,8 @@ public class QuickSort<T extends Comparable<T>> extends AbstractSort<T>
 		
 		while (true)
 		{
-			while (compareTo(array, beginIndex, ++fst) >= 0 && fst < endIndex);
-			while (compareTo(array, beginIndex, --snd) <= 0 && snd > beginIndex);
+			while (compareTo(array, beginIndex, ++fst) >= 0 && fst < endIndex);		// fst > pivot
+			while (compareTo(array, beginIndex, --snd) <= 0 && snd > beginIndex);	// snd < pivot
 			if (fst >= snd) break;
 			swap(array, fst, snd);
 		}
