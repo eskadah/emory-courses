@@ -29,7 +29,7 @@ import edu.emory.mathcs.utils.DSUtils;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class ComparisonSortTest
+public class SortTest
 {
 	@Test
 	public void testAccuracy()
