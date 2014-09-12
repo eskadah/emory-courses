@@ -39,10 +39,12 @@ public class SortTest
 		
 		testAccuracy(ITERATIONS, SIZE, new SelectionSort<>());
 		testAccuracy(ITERATIONS, SIZE, new InsertionSort<>());
+		testAccuracy(ITERATIONS, SIZE, new HeapSort<>());
 		testAccuracy(ITERATIONS, SIZE, new ShellSort<>());
 		testAccuracy(ITERATIONS, SIZE, new MergeSort<>());
 		testAccuracy(ITERATIONS, SIZE, new QuickSort<>());
-		testAccuracy(ITERATIONS, SIZE, new HeapSort<>());
+		testAccuracy(ITERATIONS, SIZE, new IntegerBucketSort(0, SIZE));
+		testAccuracy(ITERATIONS, SIZE, new LSDRadixSort());
 	}
 	
 	void testAccuracy(final int ITERATIONS, final int SIZE, AbstractSort<Integer> engine)
@@ -63,12 +65,19 @@ public class SortTest
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	@SuppressWarnings("unchecked")
 	public void compareSpeeds()
 	{
+		final int ITERATIONS = 1000;
+		final int INIT_SIZE  = 100;
+		final int MAX_SIZE   = 1000;
+		final int INCREMENT  = 100;
+		final int OPS        = 1;
+		final Random RAND    = new Random(0);
+		
 		SortSpeed comp = new SortSpeed();
-		comp.printTotal(1000, 100, 1000, 100, 1, new Random(0), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
+		comp.printTotal(ITERATIONS, INIT_SIZE, MAX_SIZE, INCREMENT, OPS, RAND, new IntegerBucketSort(0, MAX_SIZE), new LSDRadixSort(), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
 	}
 	
 	@Test
@@ -76,8 +85,16 @@ public class SortTest
 	@SuppressWarnings("unchecked")
 	public void countOperations()
 	{
+		
+		final int ITERATIONS = 1000;
+		final int INIT_SIZE  = 100;
+		final int MAX_SIZE   = 1000;
+		final int INCREMENT  = 100;
+		final int OPS        = 2;
+		final Random RAND    = new Random(0);
+		
 		SortOperation comp = new SortOperation();
-		comp.printTotal(1000, 100, 1000, 100, 2, new Random(0), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
+		comp.printTotal(ITERATIONS, INIT_SIZE, MAX_SIZE, INCREMENT, OPS, RAND, new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
 	}
 	
 	class SortSpeed extends AbstractEngineComparer<AbstractSort<Integer>>
@@ -88,6 +105,7 @@ public class SortTest
 		{
 			final Integer[] KEYS = DSUtils.getRandomIntegerArray(RAND, SIZE, SIZE);
 			final int LEN = engines.length;
+			AbstractSort<Integer> engine;
 			Integer[] temp;
 			long st, et;
 			int i;
@@ -95,8 +113,9 @@ public class SortTest
 			for (i=0; i<LEN; i++)
 			{
 				temp = Arrays.copyOf(KEYS, SIZE);
+				engine = engines[i];
 				st = System.currentTimeMillis();
-				engines[i].sort(temp);
+				engine.sort(temp);
 				et = System.currentTimeMillis();
 				times[i][0] += (et - st);
 			}

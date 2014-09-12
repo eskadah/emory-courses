@@ -15,10 +15,27 @@
  */
 package edu.emory.mathcs.cs323.sort;
 
+
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class BucketSort
+public class IntegerBucketSort extends AbstractBucketSort<Integer>
 {
-
+	private final int GAP; 
+	
+	/**
+	 * @param min the smallest possible integer (inclusive).
+	 * @param max the greatest possible integer (exclusive).
+	 */
+	public IntegerBucketSort(int min, int max)
+	{
+		super(max - min);
+		GAP = -min;
+	}
+	
+	@Override
+	protected int getBucketIndex(Integer key)
+	{
+		return key + GAP;
+	}
 }

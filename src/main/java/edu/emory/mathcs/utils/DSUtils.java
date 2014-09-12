@@ -115,4 +115,14 @@ public class DSUtils
 		
 		return true;
 	}
+	
+	static public <T>List<?>[] createEmptyListArray(int size)
+	{
+		List<?>[] buckets = new ArrayList<?>[size];
+		
+		for (int i=0; i<size; i++)
+			buckets[i] = new ArrayList<T>();
+		
+		return buckets;
+	}
 }
