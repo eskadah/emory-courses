@@ -24,12 +24,12 @@ public class IntegerBucketSort extends AbstractBucketSort<Integer>
 	private final int GAP; 
 	
 	/**
-	 * @param min the smallest possible integer (inclusive).
-	 * @param max the greatest possible integer (exclusive).
+	 * @param min the minimum integer (inclusive).
+	 * @param max the maximum integer (exclusive).
 	 */
 	public IntegerBucketSort(int min, int max)
 	{
-		super(max - min);
+		super(max - min, false);
 		GAP = -min;
 	}
 	

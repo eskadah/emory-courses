@@ -15,6 +15,7 @@
  */
 package edu.emory.mathcs.cs323.sort;
 
+import java.util.Collections;
 import java.util.List;
 
 import edu.emory.mathcs.utils.DSUtils;
@@ -25,12 +26,17 @@ import edu.emory.mathcs.utils.DSUtils;
  */
 public abstract class AbstractBucketSort<T extends Comparable<T>> extends AbstractSort<T>
 {
+	/** The list of buckets. */
 	private List<T>[] g_buckets;
+	/** if {@code true}, sort each bucket. */
+	private final boolean b_sort; 
 	
+	/** @param bucketSize the total number of buckets. */
 	@SuppressWarnings("unchecked")
-	public AbstractBucketSort(int bucketSize)
+	public AbstractBucketSort(int bucketSize, boolean sort)
 	{
 		g_buckets = (List<T>[])DSUtils.createEmptyListArray(bucketSize);
+		b_sort = sort;
 	}
 	
 	@Override
@@ -43,6 +49,9 @@ public abstract class AbstractBucketSort<T extends Comparable<T>> extends Abstra
 		
 		for (List<T> bucket : g_buckets)
 		{
+			if (b_sort)
+				Collections.sort(bucket);
+			
 			for (T key : bucket)
 				array[index++] = key;
 			
@@ -50,5 +59,9 @@ public abstract class AbstractBucketSort<T extends Comparable<T>> extends Abstra
 		}
 	}
 	
+	/**
+	 * @param key a comparable key.
+	 * @return the index of the bucket that the key should be inserted.
+	 */
 	abstract protected int getBucketIndex(T key);
 }

@@ -15,65 +15,34 @@
  */
 package edu.emory.mathcs.cs323.sort;
 
-import java.util.List;
-
-import edu.emory.mathcs.utils.DSUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class LSDRadixSort extends AbstractSort<Integer>
+public class LSDRadixSort extends AbstractBucketSort<Integer>
 {
-	private List<Integer>[] g_buckets;
+	private final int MAX;
+	private int i_div;
 	
-	@SuppressWarnings("unchecked")
-	public LSDRadixSort()
+	public LSDRadixSort(int maxDigits)
 	{
-		g_buckets = (List<Integer>[])DSUtils.createEmptyListArray(10);
+		super(10, false);
+		MAX = maxDigits;
 	}
 	
 	@Override
 	public void sort(Integer[] array)
 	{
-		int div, index, maxExp = 1;
-		Integer max = null;
-		
-		for (int exp=0; exp<maxExp; exp++)
+		for (int i=0; i<MAX; i++)
 		{
-			div = (int)Math.pow(10, exp);
-			
-			for (Integer key : array)
-			{
-				g_buckets[getBucketIndex(key, div)].add(key);
-				if (maxExp == 1 && (max == null || key.compareTo(max) > 0)) max = key;
-			}
-			
-			index = 0;
-			
-			for (List<Integer> bucket : g_buckets)
-			{
-				for (Integer key : bucket)
-					array[index++] = key;
-				
-				bucket.clear();
-			}
-			
-			if (maxExp == 1) maxExp = getMaxExponential(max);
+			i_div = (int)Math.pow(10, i);
+			super.sort(array);
 		}
 	}
 	
-	private int getBucketIndex(Integer key, int div)
+	@Override
+	protected int getBucketIndex(Integer key)
 	{
-		return (key / div) % 10;
-	}
-	
-	private int getMaxExponential(Integer max)
-	{
-		int exp = 1;
-		
-		while (Math.pow(10, exp) <= max)
-			exp++;
-		
-		return exp;
+		return (key / i_div) % 10;
 	}
 }
