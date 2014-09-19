@@ -22,7 +22,7 @@ package edu.emory.mathcs.cs323.tree;
 public class BinaryNode<T extends Comparable<T>>
 {
 	private T t_key;
-	private int i_height;
+	private int i_height;	// height of this node in the tree
 	private BinaryNode<T> n_parent;
 	private BinaryNode<T> n_leftChild;
 	private BinaryNode<T> n_rightChild;
@@ -81,6 +81,43 @@ public class BinaryNode<T extends Comparable<T>>
 		return hasLeftChild() && hasRightChild();
 	}
 	
+	public int getBalanceFactor()
+	{
+		if (hasBothChildren())
+			return n_leftChild.getHeight() - n_rightChild.getHeight();
+		else if (hasLeftChild())
+			return n_leftChild.getHeight();
+		else if (hasRightChild())
+			return -n_rightChild.getHeight();
+		else
+			return 0;
+	}
+	
+	private void updateHeight(BinaryNode<T> node, int height)
+	{
+		if (node != null && node.i_height < height)
+		{
+			node.i_height = height;
+			updateHeight(node.getParent(), height+1);	
+		}
+	}
+	
+	public void resetHeight()
+	{
+		resetHeightAux(this);
+	}
+	
+	private void resetHeightAux(BinaryNode<T> node)
+	{
+		if (node != null)
+		{
+			int lh = node.hasLeftChild()  ? node.getLeftChild() .getHeight() : 0;
+			int rh = node.hasRightChild() ? node.getRightChild().getHeight() : 0;
+			node.i_height = (lh > rh) ? lh + 1 : rh + 1;
+			resetHeightAux(node.getParent());
+		}
+	}
+	
 	public void setParent(BinaryNode<T> node)
 	{
 		n_parent = node;
@@ -108,52 +145,10 @@ public class BinaryNode<T extends Comparable<T>>
 		n_rightChild = node;
 	}
 	
-	public int getBalanceFactor()
-	{
-		if (hasBothChildren())
-			return n_leftChild.getHeight() - n_rightChild.getHeight();
-		else if (hasLeftChild())
-			return n_leftChild.getHeight();
-		else if (hasRightChild())
-			return -n_rightChild.getHeight();
-		else
-			return 0;
-	}
-	
-	public void resetHeight()
-	{
-		resetHeightAux(this);
-	}
-	
-	private void resetHeightAux(BinaryNode<T> node)
-	{
-		if (node != null)
-		{
-			int lh = node.hasLeftChild()  ? node.getLeftChild() .getHeight() : 0;
-			int rh = node.hasRightChild() ? node.getRightChild().getHeight() : 0;
-			node.i_height = (lh > rh) ? lh + 1 : rh + 1;
-			resetHeightAux(node.getParent());
-		}
-	}
-	
 	private void replaceParent(BinaryNode<T> node)
 	{
-		if (node.hasParent()) node.getParent().removeChild(node);
+		if (node.hasParent()) node.getParent().replaceChild(node, null);
 		node.n_parent = this;
-	}
-	
-	private void updateHeight(BinaryNode<T> node, int height)
-	{
-		if (node != null && node.i_height < height)
-		{
-			node.i_height = height;
-			updateHeight(node.getParent(), height+1);	
-		}
-	}
-	
-	public void removeChild(BinaryNode<T> node)
-	{
-		replaceChild(node, null);
 	}
 	
 	public void replaceChild(BinaryNode<T> oldNode, BinaryNode<T> newNode)
