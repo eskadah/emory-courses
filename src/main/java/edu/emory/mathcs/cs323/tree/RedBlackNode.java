@@ -15,15 +15,37 @@
  */
 package edu.emory.mathcs.cs323.tree;
 
-
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class BinarySearchTree<T extends Comparable<T>> extends AbstractBinarySearchTree<T,BinaryNode<T>>
+public class RedBlackNode<T extends Comparable<T>> extends AbstractBinaryNode<T,RedBlackNode<T>>
 {
-	@Override
-	public BinaryNode<T> createNode(T key)
+	/** If {@code true}, this node is red; otherwise, black. */
+	private boolean b_red;
+	
+	public RedBlackNode(T key)
 	{
-		return new BinaryNode<T>(key);
+		super(key);
+		setToRed();
+	}
+	
+	public boolean isRed()
+	{
+		return b_red;
+	}
+	
+	public boolean isBlack()
+	{
+		return !b_red;
+	}
+	
+	public void setToRed()
+	{
+		b_red = true;
+	}
+	
+	public void setToBlack()
+	{
+		b_red = false;
 	}
 }

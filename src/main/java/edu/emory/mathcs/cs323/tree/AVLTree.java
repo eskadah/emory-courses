@@ -15,46 +15,45 @@
  */
 package edu.emory.mathcs.cs323.tree;
 
-
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>
+public class AVLTree<T extends Comparable<T>> extends AbstractBalancedBinarySearchTree<T,AVLNode<T>>
 {
 	public AVLTree()
 	{
 		setRoot(null);
 	}
 	
-	/** If this tree already contains the key, nothing is added. */
-	public BinaryNode<T> add(T key)
+	@Override
+	public AVLNode<T> createNode(T key)
 	{
-		BinaryNode<T> node = super.add(key);
-		balance(node);
-		return node;
+		return new AVLNode<T>(key);
 	}
 	
-	public BinaryNode<T> remove(T key)
+	@Override
+	protected void rotateLeft(AVLNode<T> node)
 	{
-		BinaryNode<T> node = findNode(n_root, key);
-		
-		if (node != null)
-		{
-			BinaryNode<T> update = node.hasBothChildren() ? removeHibbard(node) : removeSelf(node);
-			if (update != null) update.resetHeight();
-		}
-		
-		return node;
+		super.rotateLeft(node);
+		node.resetHeights();
 	}
 	
-	private void balance(BinaryNode<T> node)
+	@Override
+	protected void rotateRight(AVLNode<T> node)
+	{
+		super.rotateRight(node);
+		node.resetHeights();
+	}
+	
+	@Override
+	protected void balance(AVLNode<T> node)
 	{
 		if (node == null) return;
 		int bf = node.getBalanceFactor();
 		
 		if (bf == 2)
 		{
-			BinaryNode<T> child = node.getLeftChild();
+			AVLNode<T> child = node.getLeftChild();
 			
 			if (child.getBalanceFactor() == -1)
 				rotateLeft(child);
@@ -63,7 +62,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>
 		}
 		else if (bf == -2)
 		{
-			BinaryNode<T> child = node.getRightChild();
+			AVLNode<T> child = node.getRightChild();
 			
 			if (child.getBalanceFactor() == 1)
 				rotateRight(child);
@@ -72,35 +71,5 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>
 		}
 		else
 			balance(node.getParent());
-	}
-	
-	private void rotateLeft(BinaryNode<T> node)
-	{
-		BinaryNode<T> child = node.getRightChild();
-		
-		node.setRightChild(child.getLeftChild());
-		
-		if (node.hasParent())
-			node.getParent().replaceChild(node, child);
-		else
-			setRoot(child);
-		
-		child.setLeftChild(node);
-		node.resetHeight();
-	}
-	
-	private void rotateRight(BinaryNode<T> node)
-	{
-		BinaryNode<T> child = node.getLeftChild();
-		
-		node.setLeftChild(child.getRightChild());
-		
-		if (node.hasParent())
-			node.getParent().replaceChild(node, child);
-		else
-			setRoot(child);
-		
-		child.setRightChild(node);
-		node.resetHeight();
 	}
 }
