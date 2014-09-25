@@ -23,6 +23,7 @@ import java.util.Random;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import edu.emory.mathcs.cs323.assignment.IntroSort;
 import edu.emory.mathcs.utils.AbstractEngineComparer;
 import edu.emory.mathcs.utils.DSUtils;
 import edu.emory.mathcs.utils.MathUtils;
@@ -44,6 +45,8 @@ public class SortTest
 		testAccuracy(ITERATIONS, SIZE, new ShellSort<>());
 		testAccuracy(ITERATIONS, SIZE, new MergeSort<>());
 		testAccuracy(ITERATIONS, SIZE, new QuickSort<>());
+		testAccuracy(ITERATIONS, SIZE, new IntroSort<>(new HeapSort<Integer>()));
+		testAccuracy(ITERATIONS, SIZE, new IntroSort<>(new ShellSort<Integer>()));
 		testAccuracy(ITERATIONS, SIZE, new IntegerBucketSort(0, SIZE));
 		testAccuracy(ITERATIONS, SIZE, new LSDRadixSort(MathUtils.getMaxBit(SIZE)));
 	}
@@ -72,13 +75,14 @@ public class SortTest
 	{
 		final int ITERATIONS = 1000;
 		final int INIT_SIZE  = 100;
-		final int MAX_SIZE   = 2000;
+		final int MAX_SIZE   = 1000;
 		final int INCREMENT  = 100;
 		final int OPS        = 1;
 		final Random RAND    = new Random(0);
 		
 		SortSpeed comp = new SortSpeed();
-		comp.printTotal(ITERATIONS, INIT_SIZE, MAX_SIZE, INCREMENT, OPS, RAND, new IntegerBucketSort(0, MAX_SIZE), new LSDRadixSort(MathUtils.getMaxBit(MAX_SIZE)), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
+//		comp.printTotal(ITERATIONS, INIT_SIZE, MAX_SIZE, INCREMENT, OPS, RAND, new IntegerBucketSort(0, MAX_SIZE), new LSDRadixSort(MathUtils.getMaxBit(MAX_SIZE)), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
+		comp.printTotal(ITERATIONS, INIT_SIZE, MAX_SIZE, INCREMENT, OPS, RAND, new IntroSort<>(new HeapSort<Integer>()), new IntroSort<>(new ShellSort<Integer>()), new QuickSort<>(), new HeapSort<>(), new ShellSort<>());
 	}
 	
 	@Test

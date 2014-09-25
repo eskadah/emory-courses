@@ -125,4 +125,22 @@ public class DSUtils
 		
 		return buckets;
 	}
+	
+	static <T>void swap(T[] array, int i, int j)
+	{
+		T t = array[i];
+		array[i] = array[j];
+		array[j] = t;
+	}
+	
+	static public <T>void shuffle(T[] array, Random rand)
+	{
+		int i, j, size = array.length - 1;
+		
+		for (i=0; i<size; i++)
+		{
+			j = rand.nextInt(size - i) + i + 1;
+			swap(array, i, j);
+		}
+	}
 }

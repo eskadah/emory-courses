@@ -53,6 +53,10 @@ public class MathUtils
 		return exp;
 	}
 
+	static public double log2(int i)
+	{
+		return Math.log(i) / Math.log(2);
+	}
 	
 //	static public void main(String[] args)
 //	{
