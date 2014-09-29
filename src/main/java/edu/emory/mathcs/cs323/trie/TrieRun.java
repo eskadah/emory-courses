@@ -50,11 +50,11 @@ public class TrieRun
 		
 		do 
 		{
-			System.out.print("Enter: ");
+			System.out.print("Enter a prefix: ");
 			s = reader.readLine();
 			
 			// TODO: print out the top 10 candidates
-			System.out.println("word1 word2 ... word10");
+			System.out.println("she\nshell\nship\n...");
 			
 			System.out.print("Pick: ");
 			s = reader.readLine();
@@ -67,9 +67,10 @@ public class TrieRun
 	
 	static public void main(String[] args) throws Exception
 	{
+		String dictFile = "/Users/jdchoi/Documents/Archive/Emory/webpage/public_html/courses/cs323-14f/dat/dict.txt";
 		TrieRun tr = new TrieRun();
 		
-		tr.putDictionary(new FileInputStream(args[0]));
+		tr.putDictionary(new FileInputStream(dictFile));
 		tr.run();
 	}
 }

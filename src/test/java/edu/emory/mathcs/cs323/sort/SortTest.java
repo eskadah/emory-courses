@@ -23,7 +23,6 @@ import java.util.Random;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import edu.emory.mathcs.cs323.assignment.IntroSort;
 import edu.emory.mathcs.utils.AbstractEngineComparer;
 import edu.emory.mathcs.utils.DSUtils;
 import edu.emory.mathcs.utils.MathUtils;
@@ -36,7 +35,7 @@ public class SortTest
 	@Test
 	public void testAccuracy()
 	{
-		final int ITERATIONS = 10;
+		final int ITERATIONS = 100;
 		final int SIZE = 100;
 		
 		testAccuracy(ITERATIONS, SIZE, new SelectionSort<>());
@@ -45,8 +44,6 @@ public class SortTest
 		testAccuracy(ITERATIONS, SIZE, new ShellSort<>());
 		testAccuracy(ITERATIONS, SIZE, new MergeSort<>());
 		testAccuracy(ITERATIONS, SIZE, new QuickSort<>());
-		testAccuracy(ITERATIONS, SIZE, new IntroSort<>(new HeapSort<Integer>()));
-		testAccuracy(ITERATIONS, SIZE, new IntroSort<>(new ShellSort<Integer>()));
 		testAccuracy(ITERATIONS, SIZE, new IntegerBucketSort(0, SIZE));
 		testAccuracy(ITERATIONS, SIZE, new LSDRadixSort(MathUtils.getMaxBit(SIZE)));
 	}
@@ -69,20 +66,19 @@ public class SortTest
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	@SuppressWarnings("unchecked")
 	public void compareSpeeds()
 	{
 		final int ITERATIONS = 1000;
 		final int INIT_SIZE  = 100;
-		final int MAX_SIZE   = 1000;
+		final int MAX_SIZE   = 2000;
 		final int INCREMENT  = 100;
 		final int OPS        = 1;
 		final Random RAND    = new Random(0);
 		
 		SortSpeed comp = new SortSpeed();
-//		comp.printTotal(ITERATIONS, INIT_SIZE, MAX_SIZE, INCREMENT, OPS, RAND, new IntegerBucketSort(0, MAX_SIZE), new LSDRadixSort(MathUtils.getMaxBit(MAX_SIZE)), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
-		comp.printTotal(ITERATIONS, INIT_SIZE, MAX_SIZE, INCREMENT, OPS, RAND, new IntroSort<>(new HeapSort<Integer>()), new IntroSort<>(new ShellSort<Integer>()), new QuickSort<>(), new HeapSort<>(), new ShellSort<>());
+		comp.printTotal(ITERATIONS, INIT_SIZE, MAX_SIZE, INCREMENT, OPS, RAND, new IntegerBucketSort(0, MAX_SIZE), new LSDRadixSort(MathUtils.getMaxBit(MAX_SIZE)), new QuickSort<>(), new HeapSort<>(), new ShellSort<>(), new MergeSort<>(), new InsertionSort<>(), new SelectionSort<>());
 	}
 	
 	@Test
@@ -90,7 +86,6 @@ public class SortTest
 	@SuppressWarnings("unchecked")
 	public void countOperations()
 	{
-		
 		final int ITERATIONS = 1000;
 		final int INIT_SIZE  = 100;
 		final int MAX_SIZE   = 1000;

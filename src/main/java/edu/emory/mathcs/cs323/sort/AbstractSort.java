@@ -33,7 +33,18 @@ public abstract class AbstractSort<T extends Comparable<T>>
 	 * Sorts the array in ascending order.
 	 * @param array an array of comparable keys.
 	 */
-	abstract public void sort(T[] array);
+	public void sort(T[] array)
+	{
+		sort(array, 0, array.length);
+	}
+	
+	/**
+	 * Sorts the array[beginIndex:endIndex] in ascending order.
+	 * @param array an array of comparable keys.
+	 * @param beginIndex the index of the first key to be sorted (inclusive).
+	 * @param endIndex the index of the last key to be sorted (exclusive).
+	 */
+	abstract public void sort(T[] array, int beginIndex, int endIndex);
 	
 	public void resetCounts()
 	{

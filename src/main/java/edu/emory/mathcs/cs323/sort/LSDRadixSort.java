@@ -31,12 +31,12 @@ public class LSDRadixSort extends AbstractBucketSort<Integer>
 	}
 	
 	@Override
-	public void sort(Integer[] array)
+	public void sort(Integer[] array, int beginIndex, int endIndex)
 	{
 		for (int i=0; i<MAX; i++)
 		{
 			i_div = (int)Math.pow(10, i);
-			super.sort(array);
+			super.sort(array, beginIndex, endIndex);
 		}
 	}
 	

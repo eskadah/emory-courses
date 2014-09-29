@@ -16,43 +16,43 @@
 package edu.emory.mathcs.cs323.sort;
 
 
+
+
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public class HeapSort<T extends Comparable<T>> extends AbstractSort<T>
 {
 	@Override
-	public void sort(T[] array)
+	public void sort(T[] array, int beginIndex, int endIndex)
 	{
-		int endIndex = array.length - 1;
+		for (int k=getParentIndex(beginIndex, endIndex); k>=beginIndex; k--)
+			sink(array, k, beginIndex, endIndex);
 		
-		for (int k=getParentIndex(endIndex); k>=0; k--)
-			sink(array, k, endIndex);
-		
-		while (endIndex > 0)
+		while (endIndex > beginIndex+1)
 		{
-			swap(array, 0, endIndex--);
-			sink(array, 0, endIndex);
+			swap(array, beginIndex, --endIndex);
+			sink(array, beginIndex, beginIndex, endIndex);
 		}
 	}
 	
-	private void sink(T[] array, int k, int endIndex)
+	private void sink(T[] array, int k, int beginIndex, int endIndex)
 	{
-		for (int i=getLeftChildIndex(k); i<=endIndex; k=i,i=getLeftChildIndex(k))
+		for (int i=getLeftChildIndex(beginIndex, k); i<endIndex; k=i,i=getLeftChildIndex(beginIndex, k))
 		{
-			if (i < endIndex && compareTo(array, i, i+1) < 0) i++;
+			if (i+1 < endIndex && compareTo(array, i, i+1) < 0) i++;
 			if (compareTo(array, k, i) >= 0) break;
 			swap(array, k, i);
 		}
 	}
 	
-	private int getParentIndex(int k)
+	private int getParentIndex(int beginIndex, int k)
 	{
-		return (k+1)/2 - 1; 
+		return beginIndex + (k-beginIndex)/2 - 1;
 	}
 	
-	private int getLeftChildIndex(int k)
+	private int getLeftChildIndex(int beginIndex, int k)
 	{
-		return 2*k + 1;
+		return beginIndex + 2*(k-beginIndex) + 1;
 	}
 }

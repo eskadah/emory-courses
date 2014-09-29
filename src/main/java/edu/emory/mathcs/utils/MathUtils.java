@@ -42,7 +42,6 @@ public class MathUtils
 		return beginIndex + (endIndex - beginIndex) / 2;
 	}
 	
-	
 	static public int getMaxBit(Integer i)
 	{
 		int exp = 1;
@@ -56,6 +55,11 @@ public class MathUtils
 	static public double log2(int i)
 	{
 		return Math.log(i) / Math.log(2);
+	}
+	
+	static public int getMaxDepthForIntroSort(int beginIndex, int endIndex)
+	{
+		return 2 * (int)log2(endIndex - beginIndex);
 	}
 	
 //	static public void main(String[] args)

@@ -29,6 +29,13 @@ public class DSUtils
 		return list;
 	}
 	
+	static public Integer[] toIntegerArray(int... array)
+	{
+		Integer[] nArray = new Integer[array.length];
+		for (int i=0; i<array.length; i++) nArray[i] = array[i];
+		return nArray;
+	}
+	
 	static public <T>List<T> toList(T[] array)
 	{
 		List<T> list = new ArrayList<>(array.length);

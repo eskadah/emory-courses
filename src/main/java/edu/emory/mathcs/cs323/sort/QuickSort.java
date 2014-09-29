@@ -15,49 +15,34 @@
  */
 package edu.emory.mathcs.cs323.sort;
 
-
-
-
-
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public class QuickSort<T extends Comparable<T>> extends AbstractSort<T>
 {
 	@Override
-	public void sort(T[] array)
+	public void sort(T[] array, int beginIndex, int endIndex)
 	{
-		sort(array, 0, array.length-1);
+		if (beginIndex + 1 < endIndex)	// more than one key in the range
+		{
+			int pivotIndex = partition(array, beginIndex, endIndex);
+			sort(array, beginIndex, pivotIndex);
+			sort(array, pivotIndex+1, endIndex);
+		}
 	}
 	
-	/**
-	 * @param beginIndex the beginning index of the 1st partition (inclusive).
-	 * @param endIndex the ending index of the 2nd partition (inclusive).
-	 */
-	private void sort(T[] array, int beginIndex, int endIndex)
+	protected int partition(T[] array, int beginIndex, int endIndex)
 	{
-		if (beginIndex >= endIndex) return;
-		int middleIndex = partition(array, beginIndex, endIndex);
-		sort(array, beginIndex, middleIndex-1);
-		sort(array, middleIndex+1, endIndex);
-	}
-	
-	/**
-	 * @param beginIndex the beginning index of the 1st partition (inclusive).
-	 * @param endIndex the ending index of the 2nd partition (inclusive).
-	 */
-	private int partition(T[] array, int beginIndex, int endIndex)
-	{
-		int fst = beginIndex, snd = endIndex + 1;
+		int fst = beginIndex, snd = endIndex;
 		
 		while (true)
 		{
-			while (compareTo(array, beginIndex, ++fst) >= 0 && fst < endIndex);		// fst > pivot
-			while (compareTo(array, beginIndex, --snd) <= 0 && snd > beginIndex);	// snd < pivot
+			while (++fst < endIndex   && compareTo(array, beginIndex, fst) >= 0);	// fst > pivot
+			while (--snd > beginIndex && compareTo(array, beginIndex, snd) <= 0);	// snd < pivot
 			if (fst >= snd) break;
 			swap(array, fst, snd);
 		}
-		
+
 		swap(array, beginIndex, snd);
 		return snd;
 	}

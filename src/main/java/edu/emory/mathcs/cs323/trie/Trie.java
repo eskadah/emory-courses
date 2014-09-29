@@ -58,6 +58,7 @@ public class Trie<T>
 			return node.getValue();
 	}
 	
+	/** @return the removed value with the specific key if exists; otherwise, {@code null}. */
 	public T remove(String key)
 	{
 		TrieNode<T> node = find(key);
@@ -86,6 +87,7 @@ public class Trie<T>
 		return null;
 	}
 	
+	/** @return the trie node with the specific key if exists; otherwise, {@code null}. */
 	private TrieNode<T> find(String key)
 	{
 		char[] array = key.toCharArray();

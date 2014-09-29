@@ -17,8 +17,6 @@ package edu.emory.mathcs.cs323.sort;
 
 import java.util.Arrays;
 
-import edu.emory.mathcs.utils.MathUtils;
-
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -28,41 +26,30 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSort<T>
 	private T[] l_temp;	// n-extra spaces
 	
 	@Override
-	public void sort(T[] array)
+	public void sort(T[] array, int beginIndex, int endIndex)
 	{
-		l_temp = null;
-		sort(array, 0, array.length-1);
-	}
-	
-	/**
-	 * @param beginIndex the beginning index of the 1st half (inclusive).
-	 * @param middleIndex the ending index of the 1st half (inclusive).
-	 * @param endIndex the ending index of the 2nd half (inclusive).
-	 */
-	private void sort(T[] array, int beginIndex, int endIndex)
-	{
-		if (beginIndex >= endIndex) return;
-		int middleIndex = MathUtils.getMiddleIndex(beginIndex, endIndex);
+		if (beginIndex + 1 >= endIndex) return;
+		int middleIndex = beginIndex + (endIndex - beginIndex) / 2;
 		sort (array, beginIndex, middleIndex);
-		sort (array, middleIndex+1, endIndex);
+		sort (array, middleIndex, endIndex);
 		merge(array, beginIndex, middleIndex, endIndex);
 	}
 	
 	/**
 	 * @param beginIndex the beginning index of the 1st half (inclusive).
-	 * @param middleIndex the ending index of the 1st half (inclusive).
-	 * @param endIndex the ending index of the 2nd half (inclusive).
+	 * @param middleIndex the ending index of the 1st half (exclusive).
+	 * @param endIndex the ending index of the 2nd half (exclusive).
 	 */
-	private void merge(T[] array, int beginIndex, int middleIndex, int endIndex)
+	private void merge(T[] array, final int beginIndex, final int middleIndex, final int endIndex)
 	{
-		int fst = beginIndex, snd = middleIndex + 1;
+		int fst = beginIndex, snd = middleIndex;
 		copy(array);
 		
-		for (int k=beginIndex; k<=endIndex; k++)
+		for (int k=beginIndex; k<endIndex; k++)
 		{
-			if (fst > middleIndex)						// all keys left in the 1st half
+			if (fst >= middleIndex)						// all keys left in the 1st half
 				assign(array, k, l_temp[snd++]);
-			else if (snd > endIndex)					// all keys left in the 2nd half
+			else if (snd >= endIndex)					// all keys left in the 2nd half
 				assign(array, k, l_temp[fst++]);
 			else if (compareTo(l_temp, fst, snd) < 0)	// 1st key < 2nd key
 				assign(array, k, l_temp[fst++]);
@@ -76,7 +63,7 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSort<T>
 		final int N = array.length;
 		n_assignments += N;
 		
-		if (l_temp == null)
+		if (l_temp == null || l_temp.length < N)
 			l_temp = Arrays.copyOf(array, N);
 		else
 			System.arraycopy(array, 0, l_temp, 0, N);

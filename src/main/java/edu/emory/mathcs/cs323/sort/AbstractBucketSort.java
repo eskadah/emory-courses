@@ -40,12 +40,10 @@ public abstract class AbstractBucketSort<T extends Comparable<T>> extends Abstra
 	}
 	
 	@Override
-	public void sort(T[] array)
+	public void sort(T[] array, int beginIndex, int endIndex)
 	{
-		for (T key : array)
-			g_buckets[getBucketIndex(key)].add(key);
-		
-		int index = 0;
+		for (int i=beginIndex; i<endIndex; i++)
+			g_buckets[getBucketIndex(array[i])].add(array[i]);
 		
 		for (List<T> bucket : g_buckets)
 		{
@@ -53,7 +51,7 @@ public abstract class AbstractBucketSort<T extends Comparable<T>> extends Abstra
 				Collections.sort(bucket);
 			
 			for (T key : bucket)
-				array[index++] = key;
+				array[beginIndex++] = key;
 			
 			bucket.clear();
 		}

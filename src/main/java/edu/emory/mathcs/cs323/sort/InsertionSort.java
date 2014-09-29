@@ -23,18 +23,17 @@ package edu.emory.mathcs.cs323.sort;
 public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T>
 {
 	@Override
-	public void sort(T[] array)
+	public void sort(T[] array, int beginIndex, int endIndex)
 	{
-		sort(array, 1);
+		sort(array, beginIndex, endIndex, 1);
 	}
 	
-	protected void sort(T[] array, final int h)
+	protected void sort(T[] array, int beginIndex, int endIndex, final int h)
 	{
-		final int len = array.length; 
-		int i, j;
+		int beginH = beginIndex + h;
 		
-		for (i=h; i<len; i++)
-			for (j=i; j>=h && compareTo(array, j, j-h) < 0; j-=h)
+		for (int i=beginH; i<endIndex; i++)
+			for (int j=i; j>=beginH && compareTo(array, j, j-h) < 0; j-=h)
 				swap(array, j, j-h);
 	}
 }

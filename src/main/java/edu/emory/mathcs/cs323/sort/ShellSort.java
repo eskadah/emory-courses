@@ -21,14 +21,13 @@ package edu.emory.mathcs.cs323.sort;
 public class ShellSort<T extends Comparable<T>> extends InsertionSort<T>
 {
 	@Override
-	public void sort(T[] array)
+	public void sort(T[] array, int beginIndex, int endIndex)
 	{
-		final int N = array.length;
-		int h = getMaxH(N);
+		int h = getMaxH(endIndex - beginIndex);
 		
 		while (h >= 1)
 		{
-			sort(array, h);
+			sort(array, beginIndex, endIndex, h);
 			h = getNextH(h);
 		}
 	}
