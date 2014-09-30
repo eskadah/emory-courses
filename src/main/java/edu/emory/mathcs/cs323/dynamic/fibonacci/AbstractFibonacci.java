@@ -13,38 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.utils;
-
-import java.util.List;
+package edu.emory.mathcs.cs323.dynamic.fibonacci;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringUtils
+public abstract class AbstractFibonacci
 {
-	static public String join(long[] array, String delim)
+	/**
+	 * @return the k'th Fibonacci number.
+	 * @throws IllegalArgumentException if {@code k < 0}.
+	 */
+	public int get(int k)
 	{
-		StringBuilder build = new StringBuilder();
-		
-		for (long item : array)
+		if (k < 0) throw new IllegalArgumentException("Invalid: "+k);
+
+		switch (k)
 		{
-			build.append(delim);
-			build.append(item);
+		case 0 : return 0;
+		case 1 : return 1;
+		default: return get2p(k);
 		}
-		
-		return build.substring(delim.length());
 	}
 	
-	static public <T>String join(List<T> list, String delim)
-	{
-		StringBuilder build = new StringBuilder();
-		
-		for (T item : list)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.substring(delim.length());
-	}
+	
+	/**
+	 * @param k {@code > 1}.
+	 * @return the k'th Fibonacci number.
+	 */
+	protected abstract int get2p(int k);
 }

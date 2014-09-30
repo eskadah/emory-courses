@@ -40,7 +40,7 @@ public class TrieRun
 		String line;
 		
 		while ((line = reader.readLine()) != null)
-			g_trie.put(line, new ArrayList<String>());
+			g_trie.put(line.trim(), new ArrayList<String>());
 	}
 	
 	public void run() throws Exception

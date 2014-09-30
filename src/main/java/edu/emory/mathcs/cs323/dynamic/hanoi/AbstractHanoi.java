@@ -13,38 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.utils;
+package edu.emory.mathcs.cs323.dynamic.hanoi;
 
 import java.util.List;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringUtils
+public abstract class AbstractHanoi
 {
-	static public String join(long[] array, String delim)
-	{
-		StringBuilder build = new StringBuilder();
-		
-		for (long item : array)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.substring(delim.length());
-	}
+	/** @return a list of steps to move all rings in the source to the destination. */
+	public abstract List<String> solve(int n, char source, char intermediate, char destination);
 	
-	static public <T>String join(List<T> list, String delim)
+	protected String getStep(int n, char source, char destination)
 	{
-		StringBuilder build = new StringBuilder();
-		
-		for (T item : list)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.substring(delim.length());
+		return n+":"+source+"->"+destination;
 	}
 }

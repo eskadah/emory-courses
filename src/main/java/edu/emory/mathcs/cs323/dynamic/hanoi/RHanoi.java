@@ -13,38 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.utils;
+package edu.emory.mathcs.cs323.dynamic.hanoi;
 
+import java.util.ArrayList;
 import java.util.List;
+
+
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringUtils
+public class RHanoi extends AbstractHanoi
 {
-	static public String join(long[] array, String delim)
+	@Override
+	public List<String> solve(int n, char source, char intermediate, char destination)
 	{
-		StringBuilder build = new StringBuilder();
-		
-		for (long item : array)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.substring(delim.length());
+		List<String> list = new ArrayList<>();
+		solve(list, n, source, intermediate, destination);
+		return list;
 	}
 	
-	static public <T>String join(List<T> list, String delim)
+	private void solve(List<String> list, int n, char source, char intermediate, char destination)
 	{
-		StringBuilder build = new StringBuilder();
-		
-		for (T item : list)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.substring(delim.length());
+		if (n == 0) return;
+		solve(list, n-1, source, destination, intermediate);
+		list.add(getStep(n, source, destination));
+		solve(list, n-1, intermediate, source, destination);
 	}
 }

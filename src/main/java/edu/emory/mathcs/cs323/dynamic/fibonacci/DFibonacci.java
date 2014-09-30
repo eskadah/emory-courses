@@ -13,38 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.utils;
+package edu.emory.mathcs.cs323.dynamic.fibonacci;
 
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringUtils
+public class DFibonacci extends AbstractFibonacci
 {
-	static public String join(long[] array, String delim)
+	int[] g_table;
+	
+	public DFibonacci(int tableSize)
 	{
-		StringBuilder build = new StringBuilder();
-		
-		for (long item : array)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.substring(delim.length());
+		g_table = new int[tableSize];
 	}
 	
-	static public <T>String join(List<T> list, String delim)
+	@Override
+	public int get2p(int k)
 	{
-		StringBuilder build = new StringBuilder();
+		initTable(k);
+		return get2pAux(k);
+	}
+	
+	private int get2pAux(int k)
+	{
+		if (g_table[k] < 0)
+			g_table[k] = get2pAux(k-1) + get2pAux(k-2);
 		
-		for (T item : list)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.substring(delim.length());
+		return g_table[k];
+	}
+
+	private void initTable(int k)
+	{
+		g_table[0] = 0;
+		g_table[1] = 1;
+		Arrays.fill(g_table, 2, k+1, -1);
 	}
 }

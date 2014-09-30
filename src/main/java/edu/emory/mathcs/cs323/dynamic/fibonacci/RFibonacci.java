@@ -13,38 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.utils;
-
-import java.util.List;
+package edu.emory.mathcs.cs323.dynamic.fibonacci;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringUtils
+public class RFibonacci extends AbstractFibonacci
 {
-	static public String join(long[] array, String delim)
+	@Override
+	protected int get2p(int k)
 	{
-		StringBuilder build = new StringBuilder();
-		
-		for (long item : array)
+		switch (k)
 		{
-			build.append(delim);
-			build.append(item);
+		case 0 : return 0;
+		case 1 : return 1;
+		default: return get2p(k-1) + get2p(k-2);
 		}
-		
-		return build.substring(delim.length());
-	}
-	
-	static public <T>String join(List<T> list, String delim)
-	{
-		StringBuilder build = new StringBuilder();
-		
-		for (T item : list)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.substring(delim.length());
 	}
 }
