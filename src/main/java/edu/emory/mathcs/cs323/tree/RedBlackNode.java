@@ -48,4 +48,11 @@ public class RedBlackNode<T extends Comparable<T>> extends AbstractBinaryNode<T,
 	{
 		b_red = false;
 	}
+
+	@Override
+	public String toString()
+	{
+		String color = isRed() ? "R" : "B";
+		return t_key+":"+color + " -> (" + n_leftChild +", " + n_rightChild +")";
+	}
 }
