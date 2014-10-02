@@ -22,10 +22,17 @@ import java.util.List;
  */
 public interface IAutocomplete<T>
 {
-	/** @return the list of candidate words given the specific prefix. */
+	/**
+	 * @param prefix the prefix of candidate words to return.
+	 * @return the list of candidate words for the specific prefix.
+	 */
 	List<String> getCandidates(String prefix);
 	
-	/** The specific candidate word is picked for the specific prefix by the user. */
+	/**
+	 * Memorize the specific candidate word for the specific prefix.
+	 * @param prefix the prefix.
+	 * @param candidate the selected candidate for the prefix.
+	 */
 	void pickCandidate(String prefix, String candidate);
 	
 	/** @return the previously inserted value if the key already exists; otherwise, the new value. */
