@@ -22,16 +22,18 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.emory.mathcs.utils.StringUtils;
+
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public class TrieRun
 {
-	private Trie<List<String>> g_trie;
+	private IAutocomplete<List<String>> t_auto;
 	
 	public TrieRun()
 	{
-		g_trie = new Trie<>();
+		t_auto = new DummyAutocomplete<List<String>>();
 	}
 	
 	public void putDictionary(InputStream in) throws Exception
@@ -40,27 +42,30 @@ public class TrieRun
 		String line;
 		
 		while ((line = reader.readLine()) != null)
-			g_trie.put(line.trim(), new ArrayList<String>());
+			t_auto.put(line.trim(), new ArrayList<String>());
 	}
 	
 	public void run() throws Exception
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		String s;
+		List<String> candidates;
+		String prefix, pick;
 		
 		do 
 		{
 			System.out.print("Enter a prefix: ");
-			s = reader.readLine();
+			prefix = reader.readLine();
 			
 			// TODO: print out the top 10 candidates
-			System.out.println("she\nshell\nship\n...");
+			candidates = t_auto.getCandidates(prefix);
+			System.out.println(StringUtils.join(candidates, "\n"));
 			
 			System.out.print("Pick: ");
-			s = reader.readLine();
-			// TODO: update your Trie with this pick.
+			pick = reader.readLine();
 			
-			System.out.println("\""+s+"\" is learned.\n");
+			// TODO: update your Trie with this pick.
+			t_auto.pickCandidate(prefix, pick);
+			System.out.println("\""+pick+"\" is learned.\n");
 		}
 		while (true);
 	}
