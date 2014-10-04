@@ -17,6 +17,7 @@ package edu.emory.mathcs.cs323.dynamic;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.emory.mathcs.cs323.dynamic.fibonacci.AbstractFibonacci;
@@ -47,6 +48,7 @@ public class FibonacciTest
 	}
 	
 	@Test
+	@Ignore
 	public void testSpeed()
 	{
 		final int ITERATIONS = 100;

@@ -19,9 +19,9 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
+import edu.emory.mathcs.cs323.assignment.hw2.Autocomplete;
 import edu.emory.mathcs.utils.StringUtils;
 
 /**
@@ -33,7 +33,7 @@ public class TrieRun
 	
 	public TrieRun()
 	{
-		t_auto = new DummyAutocomplete<List<String>>();
+		t_auto = new Autocomplete();
 	}
 	
 	public void putDictionary(InputStream in) throws Exception
@@ -42,7 +42,7 @@ public class TrieRun
 		String line;
 		
 		while ((line = reader.readLine()) != null)
-			t_auto.put(line.trim(), new ArrayList<String>());
+			t_auto.put(line.trim(), null);
 	}
 	
 	public void run() throws Exception

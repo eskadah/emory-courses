@@ -27,6 +27,7 @@ public class TrieNode<T>
 {
 	private Map<Character,TrieNode<T>> m_children;
 	private TrieNode<T> n_parent;
+	private boolean b_endState;
 	private char c_key;
 	private T  t_value;
 	
@@ -36,6 +37,7 @@ public class TrieNode<T>
 		setParenet(parent);
 		setKey(key);
 		setValue(null);
+		setEndState(false);
 	}
 	
 	public TrieNode<T> getParent()
@@ -101,5 +103,22 @@ public class TrieNode<T>
 	public TrieNode<T> removeChild(char key)
 	{
 		return m_children.remove(key);
+	}
+
+	/** @return the map whose keys and values are children's characters and nodes. */
+	public Map<Character,TrieNode<T>> getChildrenMap()
+	{
+		return m_children;
+	}
+
+	/** @return {@code true}} if this node is an end state; otherwise, {@code false}. */
+	public boolean isEndState()
+	{
+		return b_endState;
+	}
+	
+	public void setEndState(boolean isEndState)
+	{
+		b_endState = isEndState;
 	}
 }

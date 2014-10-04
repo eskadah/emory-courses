@@ -49,6 +49,8 @@ public class Trie<T>
 		for (i=0; i<len ; i++)
 			node = node.addChild(array[i]);
 
+		node.setEndState(true);
+		
 		if (!node.hasValue())
 		{
 			node.setValue(value);
@@ -63,7 +65,7 @@ public class Trie<T>
 	{
 		TrieNode<T> node = find(key);
 		
-		if (node == null || !node.hasValue())
+		if (node == null || !node.isEndState())
 			return null;
 		
 		if (node.hasChildren())
@@ -75,7 +77,7 @@ public class Trie<T>
 		{
 			parent.removeChild(node.getKey());
 			
-			if (parent.hasChildren() || parent.hasValue())
+			if (parent.hasChildren() || parent.isEndState())
 				break;
 			else
 			{
@@ -88,7 +90,7 @@ public class Trie<T>
 	}
 	
 	/** @return the trie node with the specific key if exists; otherwise, {@code null}. */
-	private TrieNode<T> find(String key)
+	protected TrieNode<T> find(String key)
 	{
 		char[] array = key.toCharArray();
 		int i, len = key.length();
@@ -101,5 +103,10 @@ public class Trie<T>
 		}
 		
 		return node;	
+	}
+	
+	public TrieNode<T> getRoot()
+	{
+		return n_root;
 	}
 }

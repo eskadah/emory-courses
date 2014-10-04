@@ -15,36 +15,16 @@
  */
 package edu.emory.mathcs.utils;
 
-import java.util.List;
+import java.util.Comparator;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringUtils
+public class LengthComparator implements Comparator<String>
 {
-	static public String join(long[] array, String delim)
+	@Override
+	public int compare(String o1, String o2)
 	{
-		StringBuilder build = new StringBuilder();
-		
-		for (long item : array)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.substring(delim.length());
-	}
-	
-	static public <T>String join(List<T> list, String delim)
-	{
-		StringBuilder build = new StringBuilder();
-		
-		for (T item : list)
-		{
-			build.append(delim);
-			build.append(item);
-		}
-		
-		return build.length() > delim.length() ? build.substring(delim.length()) : "";
+		return o2.length() - o1.length();
 	}
 }

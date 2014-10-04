@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class DummyAutocomplete<T> extends Trie<T> implements IAutocomplete<T>
+public class DummyAutocomplete extends Trie<List<String>> implements IAutocomplete<List<String>>
 {
 	@Override
 	public List<String> getCandidates(String prefix)
