@@ -25,6 +25,7 @@ public class LengthComparator implements Comparator<String>
 	@Override
 	public int compare(String o1, String o2)
 	{
-		return o2.length() - o1.length();
+		int c = o1.length() - o2.length();
+		return (c == 0) ? o1.compareTo(o2) : c;
 	}
 }

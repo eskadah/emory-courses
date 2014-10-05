@@ -72,6 +72,11 @@ public class TrieNode<T>
 		return tmp;
 	}
 	
+	public void setEndState(boolean isEndState)
+	{
+		b_endState = isEndState;
+	}
+	
 	public boolean hasValue()
 	{
 		return t_value != null;
@@ -115,10 +120,5 @@ public class TrieNode<T>
 	public boolean isEndState()
 	{
 		return b_endState;
-	}
-	
-	public void setEndState(boolean isEndState)
-	{
-		b_endState = isEndState;
 	}
 }
