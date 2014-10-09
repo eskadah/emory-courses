@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.dynamic.lcs;
+package edu.emory.mathcs.cs323.dynamic.coin;
+
+import edu.emory.mathcs.cs323.dynamic.knapsack.KnapsackItem;
+
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class AbstractLCS
+public class Quarter extends KnapsackItem
 {
-	/**
-	 * @param a the first string.
-	 * @param b the second string.
-	 * @return a longest common sequence of the specific strings {@code a} and {@code b}.
-	 */
-	public String solve(String a, String b)
+	public Quarter()
 	{
-		return solve(a.toCharArray(), b.toCharArray(), a.length()-1, b.length()-1);
-//		return get(a.toCharArray(), b.toCharArray(), 0, 0);
+		super(6, 25);
 	}
-	
-	protected abstract String solve(char[] c, char[] d, int i, int j);
-}
 
+	@Override
+	public String toString()
+	{
+		return "Quarter";
+	}
+}

@@ -13,24 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.dynamic.lcs;
+package edu.emory.mathcs.cs323.dynamic.knapsack;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class AbstractLCS
+public class KnapsackItem implements Comparable<KnapsackItem>
 {
-	/**
-	 * @param a the first string.
-	 * @param b the second string.
-	 * @return a longest common sequence of the specific strings {@code a} and {@code b}.
-	 */
-	public String solve(String a, String b)
+	private int i_weight;
+	private int i_value;
+	
+	public KnapsackItem(int weight, int value)
 	{
-		return solve(a.toCharArray(), b.toCharArray(), a.length()-1, b.length()-1);
-//		return get(a.toCharArray(), b.toCharArray(), 0, 0);
+		set(weight, value);
 	}
 	
-	protected abstract String solve(char[] c, char[] d, int i, int j);
-}
+	public void set(int weight, int value)
+	{
+		i_weight = weight;
+		i_value  = value;
+	}
+	
+	public int getWeight()
+	{
+		return i_weight;
+	}
+	
+	public int getValue()
+	{
+		return i_value;
+	}
 
+	@Override
+	public int compareTo(KnapsackItem o)
+	{
+		return i_weight - o.i_weight;
+	}
+}

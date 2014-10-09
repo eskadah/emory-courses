@@ -22,23 +22,22 @@ package edu.emory.mathcs.cs323.dynamic.lcs;
 public class DLCS extends AbstractLCS
 {
 	@Override
-	protected String get(char[] c, char[] d, int i, int j)
+	protected String solve(char[] c, char[] d, int i, int j)
 	{
-		return getAux(c, d, i, j, createTable(c, d));
+		return solve(c, d, i, j, createTable(c, d));
 	}
 	
-	private String getAux(char[] c, char[] d, int i, int j, int[][] table)
+	private String solve(char[] c, char[] d, int i, int j, int[][] table)
 	{
 		if (i < 0 || j < 0)
 			return "";
 		
 		if (c[i] == d[j])
-			return getAux(c, d, i-1, j-1, table) + c[i];
+			return solve(c, d, i-1, j-1, table) + c[i];
 		
-		if (i == 0)	return getAux(c, d, i, j-1, table);
-		if (j == 0)	return getAux(c, d, i-1, j, table);
-		
-		return (table[i-1][j] > table[i][j-1]) ? getAux(c, d, i-1, j, table) : getAux(c, d, i, j-1, table);
+		if (i == 0)	return solve(c, d, i, j-1, table);
+		if (j == 0)	return solve(c, d, i-1, j, table);
+		return (table[i-1][j] > table[i][j-1]) ? solve(c, d, i-1, j, table) : solve(c, d, i, j-1, table);
 	}
 	
 	private int[][] createTable(char[] c, char[] d)

@@ -13,24 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.dynamic.lcs;
+package edu.emory.mathcs.cs323.dynamic.knapsack;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class AbstractLCS
+public abstract class AbstractKnapsack
 {
 	/**
-	 * @param a the first string.
-	 * @param b the second string.
-	 * @return a longest common sequence of the specific strings {@code a} and {@code b}.
+	 * @param items items to be entered into the knapsack.
+	 * @param maxWeight the maximum weight that the knapsack can hold.
+	 * @return a list of items that maximizes the total value given {@code items}} and {@code maxWeight}.
 	 */
-	public String solve(String a, String b)
-	{
-		return solve(a.toCharArray(), b.toCharArray(), a.length()-1, b.length()-1);
-//		return get(a.toCharArray(), b.toCharArray(), 0, 0);
-	}
+	public abstract List<KnapsackItem> solve(KnapsackItem[] items, int maxWeight);
 	
-	protected abstract String solve(char[] c, char[] d, int i, int j);
+	/** @return the total value of the specific items. */
+	protected int getTotalValue(Collection<KnapsackItem> items)
+	{
+		int total = 0;
+		
+		for (KnapsackItem item : items)
+			total += item.getValue();
+		
+		return total;
+	}
 }
-

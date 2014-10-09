@@ -34,8 +34,8 @@ public class LCSTest
 		
 		AbstractLCS r = new RLCS();
 		AbstractLCS d = new DLCS();
-		System.out.println(r.get(a, b));
-		System.out.println(d.get(a, b));
+		System.out.println(r.solve(a, b));
+		System.out.println(d.solve(a, b));
 		
 		a = "GAATGTCCTTTCTCTAAGTCCTAAG";
 		b = "GGAGACTTACAGGAAAGAGATTCAGGATTCAGGAGGCCTACCATGAAGATCAAG";

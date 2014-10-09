@@ -36,7 +36,6 @@ public abstract class AbstractFibonacci
 		}
 	}
 	
-	
 	/**
 	 * @param k {@code > 1}.
 	 * @return the k'th Fibonacci number.
