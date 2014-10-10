@@ -31,11 +31,11 @@ import edu.emory.mathcs.utils.StringUtils;
 public class HanoiTest
 {
 	@Test
-	public void testAccuracy()
+	public void compare()
 	{
-		final char source = 'S';
+		final char source       = 'S';
 		final char intermediate = 'I';
-		final char destination = 'D';
+		final char destination  = 'D';
 		
 		AbstractHanoi recursive = new RHanoi();
 		AbstractHanoi dynamic   = new DHanoi();

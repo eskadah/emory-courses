@@ -37,7 +37,7 @@ public abstract class AbstractFibonacci
 	}
 	
 	/**
-	 * @param k {@code > 1}.
+	 * @param k must be greater than 1.
 	 * @return the k'th Fibonacci number.
 	 */
 	protected abstract int get2p(int k);

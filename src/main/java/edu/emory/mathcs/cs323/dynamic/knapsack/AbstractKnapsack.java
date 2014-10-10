@@ -26,7 +26,7 @@ public abstract class AbstractKnapsack
 	/**
 	 * @param items items to be entered into the knapsack.
 	 * @param maxWeight the maximum weight that the knapsack can hold.
-	 * @return a list of items that maximizes the total value given {@code items}} and {@code maxWeight}.
+	 * @return a list of items maximizing the total value given {@code items} and {@code maxWeight}.
 	 */
 	public abstract List<KnapsackItem> solve(KnapsackItem[] items, int maxWeight);
 	

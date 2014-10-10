@@ -22,32 +22,26 @@ import java.util.Arrays;
  */
 public class DFibonacci extends AbstractFibonacci
 {
-	int[] g_table;
-	
-	public DFibonacci(int tableSize)
-	{
-		g_table = new int[tableSize];
-	}
-	
 	@Override
 	public int get2p(int k)
 	{
-		initTable(k);
-		return get2pAux(k);
+		return get2p(k, createTable(k));
 	}
 	
-	private int get2pAux(int k)
+	private int get2p(int k, int[] table)
 	{
-		if (g_table[k] < 0)
-			g_table[k] = get2pAux(k-1) + get2pAux(k-2);
+		if (table[k] < 0)
+			table[k] = get2p(k-1, table) + get2p(k-2, table);
 		
-		return g_table[k];
+		return table[k];
 	}
 
-	private void initTable(int k)
+	private int[] createTable(int k)
 	{
-		g_table[0] = 0;
-		g_table[1] = 1;
-		Arrays.fill(g_table, 2, k+1, -1);
+		int[] table = new int[k+1];
+		table[0] = 0;
+		table[1] = 1;
+		Arrays.fill(table, 2, k+1, -1);
+		return table;
 	}
 }

@@ -37,7 +37,7 @@ public class RHanoi extends AbstractHanoi
 	{
 		if (n == 0) return;
 		solve(list, n-1, source, destination, intermediate);
-		list.add(getStep(n, source, destination));
+		list.add(getKey(n, source, destination));
 		solve(list, n-1, intermediate, source, destination);
 	}
 }

@@ -30,30 +30,29 @@ public class DHanoi extends AbstractHanoi
 	@Override
 	public List<String> solve(int n, char source, char intermediate, char destination)
 	{
-		Map<String,int[]> map = new HashMap<>();
 		List<String> list = new ArrayList<>();
-		solve(map, list, n, source, intermediate, destination);
+		solve(list, n, source, intermediate, destination, new HashMap<>());
 		return list;
 	}
 	
-	private void solve(Map<String,int[]> map, List<String> list, int n, char source, char intermediate, char destination)
+	private void solve(List<String> list, int n, char source, char intermediate, char destination, Map<String,int[]> map)
 	{
 		if (n == 0) return;
 		int fromIndex = list.size();
 		
-		int[] sub = map.get(getStep(n-1, source, intermediate));
+		int[] sub = map.get(getKey(n-1, source, intermediate));
 		if (sub != null)	addAll(list, sub[0], sub[1]);
-		else				solve(map, list, n-1, source, destination, intermediate);		
+		else				solve(list, n-1, source, destination, intermediate, map);		
 		
-		String step = getStep(n, source, destination);
-		list.add(step);
+		String key = getKey(n, source, destination);
+		list.add(key);
 		
-		sub = map.get(getStep(n-1, intermediate, destination));
+		sub = map.get(getKey(n-1, intermediate, destination));
 		if (sub != null)	addAll(list, sub[0], sub[1]);
-		else				solve(map, list, n-1, intermediate, source, destination);
+		else				solve(list, n-1, intermediate, source, destination, map);
 		
-		if (!map.containsKey(step))
-			map.put(step, new int[]{fromIndex, list.size()});
+		if (!map.containsKey(key))
+			map.put(key, new int[]{fromIndex, list.size()});
 	}
 	
 	private void addAll(List<String> list, int fromIndex, int toIndex)

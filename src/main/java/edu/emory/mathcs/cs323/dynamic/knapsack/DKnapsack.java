@@ -37,14 +37,14 @@ public class DKnapsack extends AbstractKnapsack
 	private List<KnapsackItem> solve(KnapsackItem[] items, int maxWeight, int index, Map<String,List<KnapsackItem>> map)
 	{
 		if (index < 0 || maxWeight == 0) return new ArrayList<>();
-		KnapsackItem item = items[index--];
+		KnapsackItem item = items[index];
 		
 		if (item.getWeight() > maxWeight)
-			return solveAux(items, maxWeight, index, map);
+			return solveAux(items, maxWeight, index-1, map);
 		else
 		{
-			List<KnapsackItem> with    = solveAux(items, maxWeight - item.getWeight(), index, map);
-			List<KnapsackItem> without = solveAux(items, maxWeight, index, map);
+			List<KnapsackItem> with    = solveAux(items, maxWeight - item.getWeight(), index-1, map);
+			List<KnapsackItem> without = solveAux(items, maxWeight, index-1, map);
 			with.add(item);
 			return (getTotalValue(with) > getTotalValue(without)) ? with : without;
 		}

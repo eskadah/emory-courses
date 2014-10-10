@@ -15,6 +15,8 @@
  */
 package edu.emory.mathcs.cs323.dynamic;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import edu.emory.mathcs.cs323.dynamic.lcs.AbstractLCS;
@@ -27,15 +29,15 @@ import edu.emory.mathcs.cs323.dynamic.lcs.RLCS;
 public class LCSTest
 {
 	@Test
-	public void testAccuracy()
+	public void compare()
 	{
+		AbstractLCS r = new RLCS();
+		AbstractLCS d = new DLCS();
+
 		String a = "ACGTCGTGT";
 		String b = "CTAGTGGAG";
 		
-		AbstractLCS r = new RLCS();
-		AbstractLCS d = new DLCS();
-		System.out.println(r.solve(a, b));
-		System.out.println(d.solve(a, b));
+		assertEquals(r.solve(a, b), d.solve(a, b));
 		
 		a = "GAATGTCCTTTCTCTAAGTCCTAAG";
 		b = "GGAGACTTACAGGAAAGAGATTCAGGATTCAGGAGGCCTACCATGAAGATCAAG";

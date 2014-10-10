@@ -15,8 +15,7 @@
  */
 package edu.emory.mathcs.cs323.dynamic;
 
-import java.util.Collections;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -39,23 +38,12 @@ public class KnapsackTest
 	@Test
 	public void test()
 	{
+		KnapsackItem[] items = createKnapsackItems();
 		AbstractKnapsack recursive = new RKnapsack();
 		AbstractKnapsack dynamic   = new DKnapsack();
-		KnapsackItem[] items = createKnapsackItems();
-		List<KnapsackItem> knapsack;
 		
 		for (int weight=10; weight<=100; weight+=10)
-		{
-			System.out.println("============");
-			
-			knapsack = recursive.solve(items, weight);
-			Collections.sort(knapsack);
-			System.out.printf("%2d: %s\n", weight, knapsack);
-			
-			knapsack = dynamic.solve(items, weight);
-			Collections.sort(knapsack);
-			System.out.printf("%2d: %s\n", weight, knapsack);
-		}
+			assertEquals(recursive.solve(items, weight), dynamic.solve(items, weight));
 	}
 	
 	private KnapsackItem[] createKnapsackItems()
