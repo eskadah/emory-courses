@@ -28,10 +28,15 @@ public class Trie<T>
 		n_root = new TrieNode<>(null, (char)0);
 	}
 	
+	public TrieNode<T> getRoot()
+	{
+		return n_root;
+	}
+	
 	public T get(String key)
 	{
 		TrieNode<T> node = find(key);
-		return (node != null) ? node.getValue() : null;
+		return (node != null && node.isEndState()) ? node.getValue() : null;
 	}
 	
 	public boolean contains(String key)
@@ -39,37 +44,49 @@ public class Trie<T>
 		return get(key) != null;
 	}
 	
-	/** @return the previously inserted value if the key already exists; otherwise, the new value. */
+	/** @return the previously inserted value for the specific key if exists; otherwise, {@code null}. */
 	public T put(String key, T value)
 	{
 		char[] array = key.toCharArray();
 		int i, len = key.length();
 		TrieNode<T> node = n_root;
 		
-		for (i=0; i<len ; i++)
+		for (i=0; i<len; i++)
 			node = node.addChild(array[i]);
 
 		node.setEndState(true);
-		
-		if (!node.hasValue())
-		{
-			node.setValue(value);
-			return value;
-		}
-		else
-			return node.getValue();
+		return node.setValue(value);
 	}
 	
-	/** @return the removed value with the specific key if exists; otherwise, {@code null}. */
-	public T remove(String key)
+	/** @return the node with the specific key if exists; otherwise, {@code null}. */
+	public TrieNode<T> find(String key)
+	{
+		char[] array = key.toCharArray();
+		int i, len = key.length();
+		TrieNode<T> node = n_root;
+		
+		for (i=0; i<len; i++)
+		{
+			node = node.getChild(array[i]);
+			if (node == null) return null;
+		}
+		
+		return node;	
+	}
+	
+	/** @return {@code true} if a node with the specific key if exists; otherwise, {@code false}. */
+	public boolean remove(String key)
 	{
 		TrieNode<T> node = find(key);
 		
 		if (node == null || !node.isEndState())
-			return null;
+			return false;
 		
 		if (node.hasChildren())
-			return node.setValue(null);
+		{
+			node.setEndState(false);
+			return true;
+		}
 
 		TrieNode<T> parent = node.getParent();
 
@@ -81,32 +98,11 @@ public class Trie<T>
 				break;
 			else
 			{
-				node = parent;
+				node   = parent;
 				parent = parent.getParent();
 			}	
 		}
-
-		return null;
-	}
-	
-	/** @return the trie node with the specific key if exists; otherwise, {@code null}. */
-	protected TrieNode<T> find(String key)
-	{
-		char[] array = key.toCharArray();
-		int i, len = key.length();
-		TrieNode<T> node = n_root;
 		
-		for (i=0; i<len ; i++)
-		{
-			node = node.getChild(array[i]);
-			if (node == null) return null;
-		}
-		
-		return node;	
-	}
-	
-	public TrieNode<T> getRoot()
-	{
-		return n_root;
+		return true;
 	}
 }

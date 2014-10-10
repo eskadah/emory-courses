@@ -41,10 +41,10 @@ public class TrieTest
 		assertEquals(null, trie.get("wom"));
 		assertEquals(null, trie.get("wons"));
 		
-		assertEquals(null, trie.remove("wom"));
+		assertEquals(false, trie.remove("wom"));
 		assertEquals(5, trie.get("woman").intValue());
 		
-		assertEquals(null, trie.remove("wons"));
+		assertEquals(false, trie.remove("wons"));
 		assertEquals(7, trie.get("won").intValue());
 		
 		trie.remove("won");

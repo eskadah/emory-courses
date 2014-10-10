@@ -29,15 +29,15 @@ public class TrieNode<T>
 	private TrieNode<T> n_parent;
 	private boolean b_endState;
 	private char c_key;
-	private T  t_value;
+	private T t_value;
 	
 	public TrieNode(TrieNode<T> parent, char key)
 	{
 		m_children = new HashMap<Character,TrieNode<T>>();
-		setParenet(parent);
+		setEndState(false);
+		setParent(parent);
 		setKey(key);
 		setValue(null);
-		setEndState(false);
 	}
 	
 	public TrieNode<T> getParent()
@@ -55,7 +55,7 @@ public class TrieNode<T>
 		return t_value;
 	}
 	
-	public void setParenet(TrieNode<T> node)
+	public void setParent(TrieNode<T> node)
 	{
 		n_parent = node;
 	}
@@ -77,6 +77,12 @@ public class TrieNode<T>
 		b_endState = isEndState;
 	}
 	
+	/** @return {@code true}} if this node is an end state; otherwise, {@code false}. */
+	public boolean isEndState()
+	{
+		return b_endState;
+	}
+	
 	public boolean hasValue()
 	{
 		return t_value != null;
@@ -85,6 +91,12 @@ public class TrieNode<T>
 	public boolean hasChildren()
 	{
 		return !m_children.isEmpty();
+	}
+	
+	/** @return the map whose keys and values are children's characters and nodes. */
+	public Map<Character,TrieNode<T>> getChildrenMap()
+	{
+		return m_children;
 	}
 	
 	public TrieNode<T> getChild(char key)
@@ -108,17 +120,5 @@ public class TrieNode<T>
 	public TrieNode<T> removeChild(char key)
 	{
 		return m_children.remove(key);
-	}
-
-	/** @return the map whose keys and values are children's characters and nodes. */
-	public Map<Character,TrieNode<T>> getChildrenMap()
-	{
-		return m_children;
-	}
-
-	/** @return {@code true}} if this node is an end state; otherwise, {@code false}. */
-	public boolean isEndState()
-	{
-		return b_endState;
 	}
 }
