@@ -15,6 +15,8 @@
  */
 package edu.emory.mathcs.cs323.tree;
 
+import edu.emory.mathcs.cs323.tree.node.RedBlackNode;
+
 
 
 /**

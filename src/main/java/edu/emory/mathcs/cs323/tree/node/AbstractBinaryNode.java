@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.tree;
+package edu.emory.mathcs.cs323.tree.node;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -54,22 +54,15 @@ public abstract class AbstractBinaryNode<T extends Comparable<T>,N extends Abstr
 	{
 		return hasParent() ? n_parent.getParent() : null;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public N getSibling()
+
+	public void setKey(T key)
 	{
-		if (hasParent())
-		{
-			N parent = getParent();
-			return parent.isLeftChild((N)this) ? parent.getRightChild() : parent.getLeftChild();
-		}
-		
-		return null;
+		t_key = key;
 	}
 	
-	public N getUncle()
+	public void setParent(N node)
 	{
-		return hasParent() ? n_parent.getSibling() : null;
+		n_parent = node;
 	}
 	
 	public boolean hasParent()
@@ -104,9 +97,21 @@ public abstract class AbstractBinaryNode<T extends Comparable<T>,N extends Abstr
 		return n_rightChild == node;
 	}
 	
-	public void setKey(T key)
+	@SuppressWarnings("unchecked")
+	public N getSibling()
 	{
-		t_key = key;
+		if (hasParent())
+		{
+			N parent = getParent();
+			return parent.isLeftChild((N)this) ? parent.getRightChild() : parent.getLeftChild();
+		}
+		
+		return null;
+	}
+	
+	public N getUncle()
+	{
+		return hasParent() ? n_parent.getSibling() : null;
 	}
 	
 	public void setLeftChild(N node)
@@ -126,11 +131,6 @@ public abstract class AbstractBinaryNode<T extends Comparable<T>,N extends Abstr
 	{
 		if      (isLeftChild (oldChild)) 	setLeftChild (newChild);
 		else if (isRightChild(oldChild))	setRightChild(newChild);
-	}
-	
-	protected void setParent(N node)
-	{
-		n_parent = node;
 	}
 	
 	@SuppressWarnings("unchecked")

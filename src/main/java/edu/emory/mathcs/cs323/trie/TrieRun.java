@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import edu.emory.mathcs.cs323.assignment.hw2.Autocomplete;
 import edu.emory.mathcs.utils.StringUtils;
 
 /**
@@ -29,11 +28,11 @@ import edu.emory.mathcs.utils.StringUtils;
  */
 public class TrieRun
 {
-	private IAutocomplete<List<String>> t_auto;
+	private IAutocomplete<?> t_auto;
 	
 	public TrieRun()
 	{
-		t_auto = new Autocomplete();
+		t_auto = new DummyAutocomplete();
 	}
 	
 	public void putDictionary(InputStream in) throws Exception

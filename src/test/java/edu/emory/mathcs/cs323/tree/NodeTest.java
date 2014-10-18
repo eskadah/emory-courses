@@ -21,6 +21,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import edu.emory.mathcs.cs323.tree.node.AVLNode;
+import edu.emory.mathcs.cs323.tree.node.BinaryNode;
+import edu.emory.mathcs.cs323.tree.node.RedBlackNode;
+
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
