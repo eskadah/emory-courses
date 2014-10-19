@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.emory.mathcs.cs323.tree.balanced.AVLTree;
@@ -34,6 +35,77 @@ import edu.emory.mathcs.utils.DSUtils;
  */
 public class TreeTest
 {
+	@Test
+	public void testRedBlackTree()
+	{
+		RedBlackTree<Integer> tree = new RedBlackTree<>();
+		tree.add(5);
+		tree.add(3);
+		tree.add(1);
+		System.out.println(tree.toString());
+		
+		tree = new RedBlackTree<>();
+		tree.add(1);
+		tree.add(3);
+		tree.add(5);
+		System.out.println(tree.toString());
+		
+		tree = new RedBlackTree<>();
+		tree.add(3);
+		tree.add(1);
+		tree.add(2);
+		System.out.println(tree.toString());
+		
+		tree = new RedBlackTree<>();
+		tree.add(3);
+		tree.add(5);
+		tree.add(4);
+		System.out.println(tree.toString());
+		
+		
+		tree = new RedBlackTree<>();
+		tree.add(3);
+		tree.add(5);
+		tree.add(4);
+		System.out.println(tree.toString());
+	}
+	
+	@Test
+	@Ignore
+	public void testAVLTree()
+	{
+		AVLTree<Integer> tree = new AVLTree<>();
+		tree.add(5);
+		tree.add(3);
+		tree.add(1);
+		System.out.println(tree.toString());
+		
+		tree = new AVLTree<>();
+		tree.add(1);
+		tree.add(3);
+		tree.add(5);
+		System.out.println(tree.toString());
+		
+		tree = new AVLTree<>();
+		tree.add(3);
+		tree.add(1);
+		tree.add(2);
+		System.out.println(tree.toString());
+		
+		tree = new AVLTree<>();
+		tree.add(3);
+		tree.add(5);
+		tree.add(4);
+		System.out.println(tree.toString());
+		
+		
+		tree = new AVLTree<>();
+		tree.add(3);
+		tree.add(5);
+		tree.add(4);
+		System.out.println(tree.toString());
+	}
+	
 	@Test
 	public void testBinarySearchTree()
 	{
@@ -63,6 +135,7 @@ public class TreeTest
 	}
 	
 	@Test
+	@Ignore
 	public void testAccuracy()
 	{
 		testAccuracy(1000, 1000, new BinarySearchTree<>());

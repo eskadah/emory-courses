@@ -15,9 +15,6 @@
  */
 package edu.emory.mathcs.cs323.tree.balanced;
 
-
-
-
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
@@ -75,7 +72,7 @@ public class RedBlackTree<T extends Comparable<T>> extends AbstractBalancedBinar
 				node = parent;
 			}
 
-			parent.setToBlack();
+			node.getParent().setToBlack();
 			grandParent.setToRed();
 			
 			if (node.getParent().isLeftChild(node))

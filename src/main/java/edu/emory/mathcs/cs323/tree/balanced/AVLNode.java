@@ -22,6 +22,7 @@ import edu.emory.mathcs.cs323.tree.AbstractBinaryNode;
  */
 public class AVLNode<T extends Comparable<T>> extends AbstractBinaryNode<T,AVLNode<T>>
 {
+	/** The height of this node. */
 	private int i_height;
 	
 	public AVLNode(T key)
@@ -35,6 +36,21 @@ public class AVLNode<T extends Comparable<T>> extends AbstractBinaryNode<T,AVLNo
 		return i_height;
 	}
 	
+	@Override
+	public void setLeftChild(AVLNode<T> node)
+	{
+		super.setLeftChild(node);
+		resetHeights();
+	}
+	
+	@Override
+	public void setRightChild(AVLNode<T> node)
+	{
+		super.setRightChild(node);
+		resetHeights();
+	}
+	
+	/** @return height(left-subtree) - height(right-subtree). */
 	public int getBalanceFactor()
 	{
 		if (hasBothChildren())
@@ -47,18 +63,7 @@ public class AVLNode<T extends Comparable<T>> extends AbstractBinaryNode<T,AVLNo
 			return 0;
 	}
 	
-	public void setLeftChild(AVLNode<T> node)
-	{
-		super.setLeftChild(node);
-		resetHeights();
-	}
-	
-	public void setRightChild(AVLNode<T> node)
-	{
-		super.setRightChild(node);
-		resetHeights();
-	}
-	
+	/** Resets the heights of this node and its ancestor, recursively. */
 	public void resetHeights()
 	{
 		resetHeightsAux(this);
@@ -70,8 +75,13 @@ public class AVLNode<T extends Comparable<T>> extends AbstractBinaryNode<T,AVLNo
 		{
 			int lh = node.hasLeftChild()  ? node.getLeftChild() .getHeight() : 0;
 			int rh = node.hasRightChild() ? node.getRightChild().getHeight() : 0;
-			node.i_height = (lh > rh) ? lh + 1 : rh + 1;
-			if (node.getParent() != this) resetHeightsAux(node.getParent());
+			int height = (lh > rh) ? lh + 1 : rh + 1;
+			
+			if (height != node.i_height)
+			{
+				node.i_height = height;
+				resetHeightsAux(node.getParent());
+			}
 		}
 	}
 	

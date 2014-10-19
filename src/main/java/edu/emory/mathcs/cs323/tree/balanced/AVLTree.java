@@ -21,11 +21,6 @@ package edu.emory.mathcs.cs323.tree.balanced;
  */
 public class AVLTree<T extends Comparable<T>> extends AbstractBalancedBinarySearchTree<T,AVLNode<T>>
 {
-	public AVLTree()
-	{
-		setRoot(null);
-	}
-	
 	@Override
 	public AVLNode<T> createNode(T key)
 	{

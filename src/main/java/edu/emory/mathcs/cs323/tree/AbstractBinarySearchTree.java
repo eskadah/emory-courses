@@ -15,9 +15,6 @@
  */
 package edu.emory.mathcs.cs323.tree;
 
-
-
-
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
@@ -62,20 +59,6 @@ public abstract class AbstractBinarySearchTree<T extends Comparable<T>, N extend
 	public boolean contains(T key)
 	{
 		return findNode(n_root, key) != null;
-	}
-	
-	/** @return the node with the specific key if exists; otherwise, {@code null}. */
-	protected N findNode(N node, T key)
-	{
-		if (node == null) return null;
-		int diff = key.compareTo(node.getKey());
-		
-		if (diff < 0)
-			return findNode(node.getLeftChild(), key);
-		else if (diff > 0)
-			return findNode(node.getRightChild(), key);
-		else
-			return node;		
 	}
 	
 //	============================== Add ==============================
@@ -133,6 +116,20 @@ public abstract class AbstractBinarySearchTree<T extends Comparable<T>, N extend
 		}
 		
 		return node;
+	}
+	
+	/** @return the node with the specific key if exists; otherwise, {@code null}. */
+	protected N findNode(N node, T key)
+	{
+		if (node == null) return null;
+		int diff = key.compareTo(node.getKey());
+		
+		if (diff < 0)
+			return findNode(node.getLeftChild(), key);
+		else if (diff > 0)
+			return findNode(node.getRightChild(), key);
+		else
+			return node;		
 	}
 	
 	/** @return the lowest node whose subtree has been updatede. */
