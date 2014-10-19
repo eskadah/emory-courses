@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.tree;
+package edu.emory.mathcs.cs323.tree.balanced;
 
-import edu.emory.mathcs.cs323.tree.node.RedBlackNode;
 
 
 

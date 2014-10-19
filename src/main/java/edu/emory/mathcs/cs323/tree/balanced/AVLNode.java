@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.tree.node;
+package edu.emory.mathcs.cs323.tree.balanced;
+
+import edu.emory.mathcs.cs323.tree.AbstractBinaryNode;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})

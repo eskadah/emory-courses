@@ -13,46 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.tree.node;
+package edu.emory.mathcs.cs323.tree;
+
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class RedBlackNode<T extends Comparable<T>> extends AbstractBinaryNode<T,RedBlackNode<T>>
+public class BinaryNode<T extends Comparable<T>> extends AbstractBinaryNode<T,BinaryNode<T>>
 {
-	/** If {@code true}, this node is red; otherwise, black. */
-	private boolean b_red;
-	
-	public RedBlackNode(T key)
+	/** @param key the key of this node. */
+	public BinaryNode(T key)
 	{
 		super(key);
-		setToRed();
-	}
-	
-	public boolean isRed()
-	{
-		return b_red;
-	}
-	
-	public boolean isBlack()
-	{
-		return !b_red;
-	}
-	
-	public void setToRed()
-	{
-		b_red = true;
-	}
-	
-	public void setToBlack()
-	{
-		b_red = false;
-	}
-
-	@Override
-	public String toString()
-	{
-		String color = isRed() ? "R" : "B";
-		return t_key+":"+color + " -> (" + n_leftChild +", " + n_rightChild +")";
 	}
 }

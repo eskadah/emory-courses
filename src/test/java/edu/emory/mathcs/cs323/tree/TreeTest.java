@@ -25,6 +25,8 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import edu.emory.mathcs.cs323.tree.balanced.AVLTree;
+import edu.emory.mathcs.cs323.tree.balanced.RedBlackTree;
 import edu.emory.mathcs.utils.DSUtils;
 
 /**

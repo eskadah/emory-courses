@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.tree.node;
+package edu.emory.mathcs.cs323.tree;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -126,13 +126,6 @@ public abstract class AbstractBinaryNode<T extends Comparable<T>,N extends Abstr
 		n_rightChild = node;
 	}
 	
-	/** Replaces the old child with the new child if exists. */
-	public void replaceChild(N oldChild, N newChild)
-	{
-		if      (isLeftChild (oldChild)) 	setLeftChild (newChild);
-		else if (isRightChild(oldChild))	setRightChild(newChild);
-	}
-	
 	@SuppressWarnings("unchecked")
 	protected void replaceParent(N node)
 	{
@@ -141,6 +134,13 @@ public abstract class AbstractBinaryNode<T extends Comparable<T>,N extends Abstr
 			if (node.hasParent()) node.getParent().replaceChild(node, null);
 			node.setParent((N)this);
 		}
+	}
+	
+	/** Replaces the old child with the new child if exists. */
+	public void replaceChild(N oldChild, N newChild)
+	{
+		if      (isLeftChild (oldChild)) 	setLeftChild (newChild);
+		else if (isRightChild(oldChild))	setRightChild(newChild);
 	}
 	
 	@Override
