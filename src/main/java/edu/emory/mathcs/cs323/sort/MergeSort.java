@@ -40,16 +40,16 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSort<T>
 	 * @param middleIndex the ending index of the 1st half (exclusive).
 	 * @param endIndex the ending index of the 2nd half (exclusive).
 	 */
-	private void merge(T[] array, final int beginIndex, final int middleIndex, final int endIndex)
+	private void merge(T[] array, int beginIndex, int middleIndex, int endIndex)
 	{
 		int fst = beginIndex, snd = middleIndex;
 		copy(array);
 		
 		for (int k=beginIndex; k<endIndex; k++)
 		{
-			if (fst >= middleIndex)						// all keys left in the 1st half
+			if (fst >= middleIndex)						// no key left in the 1st half
 				assign(array, k, l_temp[snd++]);
-			else if (snd >= endIndex)					// all keys left in the 2nd half
+			else if (snd >= endIndex)					// no key left in the 2nd half
 				assign(array, k, l_temp[fst++]);
 			else if (compareTo(l_temp, fst, snd) < 0)	// 1st key < 2nd key
 				assign(array, k, l_temp[fst++]);

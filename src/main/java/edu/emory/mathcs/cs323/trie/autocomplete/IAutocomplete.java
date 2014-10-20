@@ -13,33 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.trie;
+package edu.emory.mathcs.cs323.trie.autocomplete;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class DummyAutocomplete extends Trie<List<String>> implements IAutocomplete<List<String>>
+public interface IAutocomplete<T>
 {
-	@Override
-	public List<String> getCandidates(String prefix)
-	{
-		// TODO must be modified
-		List<String> list = new ArrayList<>();
-		
-		list.add("These");
-		list.add("are");
-		list.add("dummy");
-		list.add("candidates");
-		
-		return list;
-	}
-
-	@Override
-	public void pickCandidate(String prefix, String candidate)
-	{
-		// TODO must be filled
-	}
+	/**
+	 * @param prefix the prefix of candidate words to return.
+	 * @return the list of candidate words for the specific prefix.
+	 */
+	List<String> getCandidates(String prefix);
+	
+	/**
+	 * Memorize the specific candidate word for the specific prefix.
+	 * @param prefix the prefix.
+	 * @param candidate the selected candidate for the prefix.
+	 */
+	void pickCandidate(String prefix, String candidate);
+	
+	/** @return the previously inserted value if the key already exists; otherwise, the new value. */
+	T put(String key, T value);
 }

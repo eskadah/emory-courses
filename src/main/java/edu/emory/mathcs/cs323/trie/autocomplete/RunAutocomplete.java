@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.trie;
+package edu.emory.mathcs.cs323.trie.autocomplete;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -26,11 +26,11 @@ import edu.emory.mathcs.utils.StringUtils;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class TrieRun
+public class RunAutocomplete
 {
 	private IAutocomplete<?> t_auto;
 	
-	public TrieRun()
+	public RunAutocomplete()
 	{
 		t_auto = new DummyAutocomplete();
 	}
@@ -72,7 +72,7 @@ public class TrieRun
 	static public void main(String[] args) throws Exception
 	{
 		String dictFile = "/Users/jdchoi/Documents/Archive/Emory/webpage/public_html/courses/cs323-14f/dat/dict.txt";
-		TrieRun tr = new TrieRun();
+		RunAutocomplete tr = new RunAutocomplete();
 		
 		tr.putDictionary(new FileInputStream(dictFile));
 		tr.run();
