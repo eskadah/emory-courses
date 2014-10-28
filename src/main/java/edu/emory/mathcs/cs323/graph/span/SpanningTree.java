@@ -13,22 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.graph;
+package edu.emory.mathcs.cs323.graph.span;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.emory.mathcs.cs323.graph.Edge;
 import edu.emory.mathcs.utils.MathUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class Tree
+public class SpanningTree
 {
 	private List<Edge> l_edges;
 	private double d_weight;
 	
-	public Tree()
+	public SpanningTree()
 	{
 		l_edges = new ArrayList<>();
 	}
