@@ -16,8 +16,12 @@
 package edu.emory.mathcs.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 /** @author Jinho D. Choi ({@code jinho.choi@emory.edu}) */
 public class DSUtils
@@ -125,12 +129,32 @@ public class DSUtils
 	
 	static public <T>List<?>[] createEmptyListArray(int size)
 	{
-		List<?>[] buckets = new ArrayList<?>[size];
+		List<?>[] array = new ArrayList<?>[size];
 		
 		for (int i=0; i<size; i++)
-			buckets[i] = new ArrayList<T>();
+			array[i] = new ArrayList<T>();
 		
-		return buckets;
+		return array;
+	}
+	
+	static public <T>Set<?>[] createEmptySetArray(int size)
+	{
+		Set<?>[] set = new HashSet<?>[size];
+		
+		for (int i=0; i<size; i++)
+			set[i] = new HashSet<T>();
+		
+		return set;
+	}
+	
+	static public <K,V>Map<?,?>[] createEmptyMapArray(int size)
+	{
+		Map<?,?>[] map = new HashMap<?,?>[size];
+		
+		for (int i=0; i<size; i++)
+			map[i] = new HashMap<K,V>();
+		
+		return map;
 	}
 	
 	static <T>void swap(T[] array, int i, int j)
