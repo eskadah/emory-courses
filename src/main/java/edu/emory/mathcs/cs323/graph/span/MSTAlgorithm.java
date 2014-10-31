@@ -22,5 +22,9 @@ import edu.emory.mathcs.cs323.graph.Graph;
  */
 public interface MSTAlgorithm
 {
+	/**
+	 * @param graph a graph containing at least one spanning tree.
+	 * @return a minimum spanning tree.
+	 */
 	public SpanningTree getMinimumSpanningTree(Graph graph);
 }

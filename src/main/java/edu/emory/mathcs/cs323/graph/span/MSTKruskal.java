@@ -15,7 +15,12 @@
  */
 package edu.emory.mathcs.cs323.graph.span;
 
+import java.util.PriorityQueue;
+import java.util.Set;
+
+import edu.emory.mathcs.cs323.graph.Edge;
 import edu.emory.mathcs.cs323.graph.Graph;
+import edu.emory.mathcs.utils.DSUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -25,6 +30,44 @@ public class MSTKruskal implements MSTAlgorithm
 	@Override
 	public SpanningTree getMinimumSpanningTree(Graph graph)
 	{
-		return null;
+		Set<Integer>[] forest = createForest(graph.size());
+		PriorityQueue<Edge> queue = createEdgePQ(graph);
+		SpanningTree tree = new SpanningTree();
+		Set<Integer> set;
+		Edge edge;
+		
+		while (!queue.isEmpty())
+		{
+			edge = queue.poll();
+			set  = forest[edge.getTarget()];
+			
+			if (!set.contains(edge.getSource()))
+			{
+				tree.addEdge(edge);
+				if (tree.size()+1 == graph.size()) break;
+				set.addAll(forest[edge.getSource()]);
+				for (int i : set) forest[i] = set;
+			}
+		}
+		
+		return tree;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Set<Integer>[] createForest(int size)
+	{
+		Set<Integer>[] forest = (Set<Integer>[])DSUtils.createEmptySetArray(size);
+		for (int i=0; i<size; i++) forest[i].add(i);
+		return forest;
+	}
+	
+	private PriorityQueue<Edge> createEdgePQ(Graph graph)
+	{
+		PriorityQueue<Edge> queue = new PriorityQueue<>();
+		
+		for (int i=0; i<graph.size(); i++)
+			queue.addAll(graph.getIncomingEdges(i));
+		
+		return queue;
 	}
 }

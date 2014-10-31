@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Set;
 
@@ -155,6 +156,16 @@ public class DSUtils
 			map[i] = new HashMap<K,V>();
 		
 		return map;
+	}
+	
+	static public <T>PriorityQueue<?>[] createEmptyPriorityQueueArray(int size)
+	{
+		PriorityQueue<?>[] queue = new PriorityQueue<?>[size];
+		
+		for (int i=0; i<size; i++)
+			queue[i] = new PriorityQueue<T>();
+		
+		return queue;
 	}
 	
 	static <T>void swap(T[] array, int i, int j)

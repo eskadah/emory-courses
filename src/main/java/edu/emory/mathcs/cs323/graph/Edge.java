@@ -28,6 +28,16 @@ public class Edge implements Comparable<Edge>
 	
 	public Edge(int source, int target, double weight)
 	{
+		init(source, target, weight);
+	}
+	
+	public Edge(Edge edge)
+	{
+		init(edge.getSource(), edge.getTarget(), edge.getWeight());
+	}
+	
+	private void init(int source, int target, double weight)
+	{
 		setSource(source);
 		setTarget(target);
 		setWeight(weight);
