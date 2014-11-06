@@ -72,6 +72,11 @@ public class Edge implements Comparable<Edge>
 	{
 		d_weight = weight;
 	}
+	
+	public void addWeight(double weight)
+	{
+		d_weight += weight;
+	}
 
 	@Override
 	public int compareTo(Edge edge)
@@ -80,5 +85,10 @@ public class Edge implements Comparable<Edge>
 		if      (diff > 0)	return  1;
 		else if (diff < 0)	return -1;
 		else				return  0;
+	}
+	
+	public String toString()
+	{
+		return String.format("%d <- %d : %f", getTarget(), getSource(), getWeight());
 	}
 }

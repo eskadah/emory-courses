@@ -15,7 +15,9 @@
  */
 package edu.emory.mathcs.utils;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -136,6 +138,16 @@ public class DSUtils
 			array[i] = new ArrayList<T>();
 		
 		return array;
+	}
+	
+	static public <T>Deque<?>[] createEmptyDequeArray(int size)
+	{
+		Deque<?>[] deque = new ArrayDeque<?>[size];
+		
+		for (int i=0; i<size; i++)
+			deque[i] = new ArrayDeque<T>();
+		
+		return deque;
 	}
 	
 	static public <T>Set<?>[] createEmptySetArray(int size)

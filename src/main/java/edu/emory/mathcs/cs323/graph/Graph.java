@@ -15,6 +15,7 @@
  */
 package edu.emory.mathcs.cs323.graph;
 
+import java.util.Deque;
 import java.util.List;
 
 import edu.emory.mathcs.utils.DSUtils;
@@ -52,5 +53,45 @@ public class Graph
 	public int size()
 	{
 		return e_incoming.length;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Deque<Edge>[] getOutgoingEdges()
+	{
+		Deque<Edge>[] edges = (Deque<Edge>[])DSUtils.createEmptyDequeArray(size());
+		
+		for (int target=0; target<size(); target++)
+		{
+			for (Edge edge : getIncomingEdges(target))
+				edges[edge.getSource()].add(edge);
+		}
+		
+		return edges;
+	}
+	
+	public boolean isEmpty()
+	{
+		for (int i=0; i<size(); i++)
+		{
+			if (!getIncomingEdges(i).isEmpty())
+				return false;
+		}
+		
+		return true;
+	}
+	
+	public String toString()
+	{
+		StringBuilder build = new StringBuilder();
+		
+		for (int i=0; i<e_incoming.length; i++)
+		{
+			build.append(i);
+			build.append(" <- ");
+			build.append(e_incoming[i].toString());
+			build.append("\n");
+		}
+		
+		return build.toString();
 	}
 }

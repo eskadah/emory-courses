@@ -19,8 +19,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import edu.emory.mathcs.utils.MathUtils;
-
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */

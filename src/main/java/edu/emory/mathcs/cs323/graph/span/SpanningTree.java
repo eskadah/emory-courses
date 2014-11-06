@@ -24,7 +24,6 @@ import java.util.Set;
 
 import edu.emory.mathcs.cs323.graph.Edge;
 import edu.emory.mathcs.utils.MathUtils;
-import edu.emory.mathcs.utils.Pair;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -60,56 +59,97 @@ public class SpanningTree
 		d_weight += edge.getWeight();
 	}
 	
-	public Pair<List<Set<Integer>>,List<List<Edge>>> handleCycles()
+	public Set<Integer> getTargets()
 	{
-		List<Set<Integer>> forest = new ArrayList<>();
-		List<List<Edge>> cycles = new ArrayList<>();
-		Map<Integer,Edge> map = new HashMap<>();
 		Set<Integer> set = new HashSet<>();
-		List<Edge> tmp = new ArrayList<>();
-		Edge curr = null;
-
+		
 		for (Edge edge : l_edges)
-			map.put(edge.getSource(), edge);
+			set.add(edge.getTarget());
 		
-		while (!map.isEmpty())
-		{
-			if (curr == null) curr = getEdge(map);
-			tmp.add(curr);
-			set.add(curr.getSource());
-			
-			if (set.contains(curr.getTarget()))		// cycle
-			{
-				cycles.add(tmp);
-				forest.add(set);
-				curr = null;
-				
-				removeAll(map, set);
-				tmp = new ArrayList<>();
-				set = new HashSet<>();
-			}
-			else if ((curr = map.get(curr.getTarget())) == null)	// disjoint
-			{
-				removeAll(map, set);
-				tmp = new ArrayList<>();
-				set = new HashSet<>();
-			}
-		}
-		
-		return new Pair<>(forest, cycles);
+		return set;
 	}
 	
-	private Edge getEdge(Map<Integer,Edge> map)
+	public List<List<Edge>> getCycles()
 	{
-		for (Edge edge : map.values())
-			return edge;
+		Map<Integer,List<Edge>> edgeMap = getEdgeMap();
+		List<List<Edge>> cycles = new ArrayList<>();
+		getCyclesAux(cycles, edgeMap, new ArrayList<>(), new HashSet<>(), getAnyEdge(edgeMap));
+		return cycles;
+	}
+	
+	/** @return Map whose keys are source vertices and keys are the edges. */
+	private Map<Integer,List<Edge>> getEdgeMap()
+	{
+		Map<Integer,List<Edge>> map = new HashMap<>();
+		List<Edge> tmp;		
+
+		for (Edge edge : l_edges)
+		{
+			tmp = map.get(edge.getSource());
+			
+			if (tmp == null)
+			{
+				tmp = new ArrayList<>();
+				map.put(edge.getSource(), tmp);
+			}
+			
+			tmp.add(edge);
+		}
+		
+		return map;
+	}
+	
+	private Edge getAnyEdge(Map<Integer,List<Edge>> map)
+	{
+		for (List<Edge> edge : map.values())
+			return edge.get(0);
 		
 		return null;
 	}
 	
-	private void removeAll(Map<Integer,Edge> map, Set<Integer> set)
+	private void getCyclesAux(List<List<Edge>> cycles, Map<Integer,List<Edge>> edgeMap, List<Edge> cycle, Set<Integer> set, Edge curr)
 	{
-		for (int source : set) map.remove(source);
+		if (edgeMap.isEmpty()) return;
+		set.add(curr.getSource());
+		cycle.add(curr);
+		
+		if (set.contains(curr.getTarget()))		// cycle
+		{
+			removeAll(edgeMap, set, cycle);
+			cycles.add(cycle);
+			getCyclesAux(cycles, edgeMap, new ArrayList<>(), new HashSet<>(), getAnyEdge(edgeMap));
+		}
+		else 
+		{
+			List<Edge> tmp = edgeMap.get(curr.getTarget());
+			
+			if (tmp == null)
+			{
+				removeAll(edgeMap, set, cycle);
+				getCyclesAux(cycles, edgeMap, new ArrayList<>(), new HashSet<>(), getAnyEdge(edgeMap));
+			}
+			else
+			{
+				for (Edge edge : new ArrayList<>(tmp))
+					getCyclesAux(cycles, edgeMap, new ArrayList<>(cycle), new HashSet<>(set), edge);
+			}
+		}
+	}
+	
+	private void removeAll(Map<Integer,List<Edge>> map, Set<Integer> set, List<Edge> cycle)
+	{
+		List<Edge> tmp;
+		
+		for (int source : set)
+		{
+			tmp = map.get(source);
+
+			if (tmp != null)
+			{
+				tmp.removeAll(cycle);
+				if (tmp.isEmpty()) map.remove(source);
+			}
+		}
 	}
 	
 	@Override
