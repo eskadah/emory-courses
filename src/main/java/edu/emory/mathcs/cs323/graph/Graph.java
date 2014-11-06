@@ -15,6 +15,8 @@
  */
 package edu.emory.mathcs.cs323.graph;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
@@ -38,6 +40,16 @@ public class Graph
 		return e_incoming[target];
 	}
 	
+	public List<Edge> getAllEdges()
+	{
+		List<Edge> edges = new ArrayList<>();
+		
+		for (int i=0; i<size(); i++)
+			edges.addAll(e_incoming[i]);
+		
+		return edges;
+	}
+	
 	public void setDirectedEdge(int source, int target, double weight)
 	{
 		List<Edge> edges = getIncomingEdges(target);
@@ -55,6 +67,11 @@ public class Graph
 		return e_incoming.length;
 	}
 	
+//	public boolean containsCycle()
+//	{
+//		
+//	}
+	
 	@SuppressWarnings("unchecked")
 	public Deque<Edge>[] getOutgoingEdges()
 	{
@@ -67,6 +84,20 @@ public class Graph
 		}
 		
 		return edges;
+	}
+	
+	public Deque<Integer> getVerticesWithNoIncomingEdges()
+	{
+		Deque<Integer> deque = new ArrayDeque<>();
+		int i, size = size();
+		
+		for (i=0; i<size; i++)
+		{
+			if (getIncomingEdges(i).isEmpty())
+				deque.add(i);
+		}
+		
+		return deque;
 	}
 	
 	public boolean isEmpty()

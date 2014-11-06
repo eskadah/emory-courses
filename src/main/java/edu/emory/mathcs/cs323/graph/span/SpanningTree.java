@@ -119,7 +119,7 @@ public class SpanningTree
 			cycles.add(cycle);
 			getCyclesAux(cycles, edgeMap, new ArrayList<>(), new HashSet<>(), getAnyEdge(edgeMap));
 		}
-		else 
+		else
 		{
 			List<Edge> tmp = edgeMap.get(curr.getTarget());
 			
