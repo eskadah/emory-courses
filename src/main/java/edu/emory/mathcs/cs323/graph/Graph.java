@@ -18,7 +18,9 @@ package edu.emory.mathcs.cs323.graph;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import edu.emory.mathcs.utils.DSUtils;
 
@@ -67,10 +69,36 @@ public class Graph
 		return e_incoming.length;
 	}
 	
-//	public boolean containsCycle()
-//	{
-//		
-//	}
+	public boolean containsCycle()
+	{
+		Deque<Integer> notVisited = new ArrayDeque<>();
+		for (int i=0; i<size(); i++) notVisited.add(i);
+		
+		while (!notVisited.isEmpty())
+		{
+			if (containsCycleAux(notVisited.poll(), notVisited, new HashSet<>()))
+				return true;
+		}
+		
+		return false;
+	}	
+	
+	private boolean containsCycleAux(int target, Deque<Integer> notVisited, Set<Integer> visited)
+	{
+		notVisited.remove(target);
+		visited.add(target);
+		
+		for (Edge edge : getIncomingEdges(target))
+		{
+			if (visited.contains(edge.getSource()))
+				return true;
+			
+			if (containsCycleAux(edge.getSource(), notVisited, new HashSet<>(visited)))
+				return true;
+		}
+		
+		return false;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public Deque<Edge>[] getOutgoingEdges()

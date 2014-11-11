@@ -25,7 +25,7 @@ import edu.emory.mathcs.cs323.graph.Graph;
 public interface MSTAll
 {
 	/**
-	 * @param graph a graph containing at least one spanning tree.
+	 * @param graph an undirected graph containing zero to many spanning trees.
 	 * @return list of all minimum spanning trees.
 	 */
 	public List<SpanningTree> getMinimumSpanningTrees(Graph graph);
