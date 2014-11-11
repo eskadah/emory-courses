@@ -15,13 +15,10 @@
  */
 package edu.emory.mathcs.cs323.graph.path;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
-
-import org.junit.Test;
 
 import edu.emory.mathcs.cs323.graph.Graph;
 
@@ -62,24 +59,17 @@ public class PathDijkstra
 		}
 	}
 	
+	/** @return the list of vertices from the source to the target. */
 	private List<Integer> getPath(Integer[] previous, int source)
 	{
-		List<Integer> path = new ArrayList<>();
-		
-		while (previous[source] != null)
-		{
-			path.add(source);
-			source = previous[source];
-		}
-		
-		path.add(source);
-		return path;
+		// To be filled
+		return null;
 	}
 	
 	private class VertexDistancePair implements Comparable<VertexDistancePair>
 	{
-		int    vertex;
-		double distance;
+		public int    vertex;
+		public double distance;
 		
 		public VertexDistancePair(int vertex, double distance)
 		{
