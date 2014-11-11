@@ -13,45 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.cs323.tree;
-
-import static org.junit.Assert.assertEquals;
+package edu.emory.mathcs.cs323.graph.path;
 
 import org.junit.Test;
+
+import edu.emory.mathcs.cs323.graph.Graph;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class WordTreeTest
+public class PathDijkstraTest
 {
 	@Test
 	public void test()
 	{
-		BinarySearchTree<WordNode> tree = new BinarySearchTree<>();
-		String[] array = {"Hello","World","I","love","programming"};
+		PathDijkstra d = new PathDijkstra();
+		Graph g = new Graph(6);
 		
-		for (int i=0; i<array.length; i++)
-			tree.add(new WordNode(array[i], i));
+		g.setDirectedEdge(0, 1, 4);
+		g.setDirectedEdge(0, 2, 2);
+		g.setDirectedEdge(1, 2, 5);
+		g.setDirectedEdge(1, 3, 10);
+		g.setDirectedEdge(2, 4, 3);
+		g.setDirectedEdge(3, 5, 3);
+		g.setDirectedEdge(4, 3, 4);
+		g.setDirectedEdge(4, 5, 9);
 		
-		for (int i=0; i<array.length; i++)
-			assertEquals(i, tree.get(new WordNode(array[i], 0)).getKey().i_id);
-	}
-	
-	class WordNode implements Comparable<WordNode>
-	{
-		String s_word;
-		int i_id;
-		
-		public WordNode(String word, int id)
-		{
-			s_word = word;
-			i_id   = id; 
-		}
-
-		@Override
-		public int compareTo(WordNode node)
-		{
-			return s_word.compareTo(node.s_word);
-		}
+		System.out.println(d.getShortestPath(g, 0, 5));
 	}
 }
