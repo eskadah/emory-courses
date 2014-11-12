@@ -16,10 +16,12 @@
 package edu.emory.mathcs.cs323.graph.path;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import org.junit.Test;
+
+import edu.emory.mathcs.cs323.graph.Edge;
 import edu.emory.mathcs.cs323.graph.Graph;
 
 /**
@@ -27,22 +29,40 @@ import edu.emory.mathcs.cs323.graph.Graph;
  */
 public class PathDijkstra
 {
-	public List<Integer> getShortestPath(Graph graph, int source, int target)
+	public Integer[] getShortestPath(Graph graph, int source, int target)
 	{
 		PriorityQueue<VertexDistancePair> queue = new PriorityQueue<>();
 		Integer[] previous = new Integer[graph.size()];
 		double[] distances = new double[graph.size()];
 		Set<Integer> visited = new HashSet<>();
-		
+
 		init(distances, previous, target);
 		queue.add(new VertexDistancePair(target, 0));
 		
 		while (!queue.isEmpty())
 		{
-			// To be filled.
+			VertexDistancePair u = queue.poll();
+			visited.add(u.vertex);
+			
+			for (Edge edge : graph.getIncomingEdges(u.vertex))
+			{
+				int v = edge.getSource();
+				
+				if (!visited.contains(v))
+				{
+					double dist = distances[u.vertex] + edge.getWeight();
+					
+					if (dist < distances[v])
+					{
+						distances[v] = dist;
+						previous [v] = u.vertex;
+						queue.add(new VertexDistancePair(v, dist));
+					}
+				}
+			}
 		}
 		
-		return getPath(previous, source);
+		return previous;
 	}
 	
 	private void init(double[] distances, Integer[] previous, int target)
@@ -57,13 +77,6 @@ public class PathDijkstra
 				previous[i]  = null;
 			}
 		}
-	}
-	
-	/** @return the list of vertices from the source to the target. */
-	private List<Integer> getPath(Integer[] previous, int source)
-	{
-		// To be filled
-		return null;
 	}
 	
 	private class VertexDistancePair implements Comparable<VertexDistancePair>
@@ -85,5 +98,33 @@ public class PathDijkstra
 			if (diff < 0) return -1;
 			return 0;
 		}
+	}
+	
+	@Test
+	public void test()
+	{
+		PathDijkstra d = new PathDijkstra();
+		Graph g = new Graph(6);
+		
+		g.setDirectedEdge(0, 1, 4);
+		g.setDirectedEdge(0, 2, 2);
+		g.setDirectedEdge(1, 2, 5);
+		g.setDirectedEdge(1, 3, 10);
+		g.setDirectedEdge(2, 4, 3);
+		g.setDirectedEdge(3, 5, 3);
+		g.setDirectedEdge(4, 3, 4);
+		g.setDirectedEdge(4, 5, 9);
+		
+		System.out.println(d.getShortestPath(g, 0, 5));
+//		g = new Graph(5);
+//		
+//		g.setDirectedEdge(0, 1, 2);
+//		g.setDirectedEdge(0, 2, 8);
+//		g.setDirectedEdge(0, 3, 5);
+//		g.setDirectedEdge(1, 2, 1);
+//		g.setDirectedEdge(2, 4, 3);
+//		g.setDirectedEdge(3, 4, 4);
+//		
+//		System.out.println(d.getShortestPath(g, 0, 4));		
 	}
 }
