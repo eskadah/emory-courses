@@ -68,6 +68,7 @@ public class MinimumSpanningTreeTest
 	}
 	
 	@Test
+	@Ignore
 	public void testDirected()
 	{
 		Graph graph = new Graph(5);
@@ -94,7 +95,17 @@ public class MinimumSpanningTreeTest
 		
 		MSTEdmonds mst = new MSTEdmonds();
 		SpanningTree tree = mst.getMinimumSpanningTree(graph);
-		System.out.println(tree.toString());
 		
+		graph = new Graph(4);
+		
+		graph.setDirectedEdge(0, 1, 4);
+		graph.setDirectedEdge(0, 2, 4);
+		graph.setDirectedEdge(0, 3, 4);
+		graph.setDirectedEdge(1, 3, 1);
+		graph.setDirectedEdge(2, 1, 2);
+		graph.setDirectedEdge(3, 2, 3);
+		
+		tree = mst.getMinimumSpanningTree(graph);
+		System.out.println(tree.toString());
 	}
 }

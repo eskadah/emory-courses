@@ -19,15 +19,13 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import org.junit.Test;
-
 import edu.emory.mathcs.cs323.graph.Edge;
 import edu.emory.mathcs.cs323.graph.Graph;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class PathDijkstra
+public abstract class AStar
 {
 	public Integer[] getShortestPath(Graph graph, int source, int target)
 	{
@@ -54,7 +52,7 @@ public class PathDijkstra
 					
 					if (dist < distances[v])
 					{
-						distances[v] = dist;
+						distances[v] = dist + heuristic(v, target);
 						previous [v] = u.vertex;
 						queue.add(new VertexDistancePair(v, dist));
 					}
@@ -70,7 +68,7 @@ public class PathDijkstra
 		for (int i=0; i<distances.length; i++)
 		{
 			if (i == target)
-				distances[i] = 0;
+				distances[i] = heuristic(i, target);
 			else
 			{
 				distances[i] = Double.MAX_VALUE;
@@ -78,6 +76,8 @@ public class PathDijkstra
 			}
 		}
 	}
+	
+	protected abstract double heuristic(int source, int target);
 	
 	private class VertexDistancePair implements Comparable<VertexDistancePair>
 	{
@@ -98,33 +98,5 @@ public class PathDijkstra
 			if (diff < 0) return -1;
 			return 0;
 		}
-	}
-	
-	@Test
-	public void test()
-	{
-		PathDijkstra d = new PathDijkstra();
-		Graph g = new Graph(6);
-		
-		g.setDirectedEdge(0, 1, 4);
-		g.setDirectedEdge(0, 2, 2);
-		g.setDirectedEdge(1, 2, 5);
-		g.setDirectedEdge(1, 3, 10);
-		g.setDirectedEdge(2, 4, 3);
-		g.setDirectedEdge(3, 5, 3);
-		g.setDirectedEdge(4, 3, 4);
-		g.setDirectedEdge(4, 5, 9);
-		
-		System.out.println(d.getShortestPath(g, 0, 5));
-//		g = new Graph(5);
-//		
-//		g.setDirectedEdge(0, 1, 2);
-//		g.setDirectedEdge(0, 2, 8);
-//		g.setDirectedEdge(0, 3, 5);
-//		g.setDirectedEdge(1, 2, 1);
-//		g.setDirectedEdge(2, 4, 3);
-//		g.setDirectedEdge(3, 4, 4);
-//		
-//		System.out.println(d.getShortestPath(g, 0, 4));		
 	}
 }

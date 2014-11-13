@@ -95,6 +95,7 @@ public class MSTEdmonds implements MSTAlgorithm
 	{
 		List<Set<Integer>> forest = new ArrayList<>();
 		Set<Integer> set, all = new HashSet<>();
+		Edge edge;
 		
 		for (List<Edge> cycle : cycles)
 		{
@@ -102,12 +103,14 @@ public class MSTEdmonds implements MSTAlgorithm
 			all.addAll(set);
 			forest.add(set);
 
-			for (Edge edge : cycle)
+			for (int i=0; i<cycle.size(); i++)
 			{
+				edge = cycle.get(i);
+				
 				for (Edge iEdge : graph.getIncomingEdges(edge.getSource()))
 				{
 					if (!set.contains(iEdge.getSource()))
-						iEdge.addWeight(edge.getWeight());
+						iEdge.addWeight(getChainedWeight(cycle, edge.getSource()));
 				}
 			}
 		}
@@ -123,6 +126,19 @@ public class MSTEdmonds implements MSTAlgorithm
 		}
 		
 		return forest;
+	}
+	
+	private double getChainedWeight(List<Edge> cycle, int source)
+	{
+		double sum = 0;
+		
+		for (Edge edge : cycle)
+		{
+			if (edge.getTarget() != source)
+				sum += edge.getWeight();
+		}
+		
+		return sum;
 	}
 	
 	private void addEdgesFromCycles(SpanningTree tree, List<Edge> cyclicEdges)

@@ -28,7 +28,7 @@ import edu.emory.mathcs.utils.MathUtils;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class SpanningTree
+public class SpanningTree implements Comparable<SpanningTree>
 {
 	private List<Edge> l_edges;
 	private double d_weight;
@@ -36,6 +36,11 @@ public class SpanningTree
 	public SpanningTree()
 	{
 		l_edges = new ArrayList<>();
+	}
+	
+	public SpanningTree(SpanningTree tree)
+	{
+		l_edges = new ArrayList<>(tree.getEdges());
 	}
 	
 	public int size()
@@ -161,6 +166,15 @@ public class SpanningTree
 		for (Edge edge : l_edges)
 			build.append(String.format("\n%"+size+"d <- %"+size+"d : %f", edge.getTarget(), edge.getSource(), edge.getWeight()));
 		
-		return build.substring(1);
+		return build.length() > 0 ? build.substring(1) : "";
+	}
+
+	@Override
+	public int compareTo(SpanningTree tree)
+	{
+		double diff = d_weight - tree.d_weight;
+		if      (diff > 0)	return 1;
+		else if (diff < 0)	return -1;
+		else 				return 0;
 	}
 }

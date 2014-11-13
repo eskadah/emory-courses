@@ -33,20 +33,20 @@ public class MSTKruskal implements MSTAlgorithm
 		Set<Integer>[] forest = createForest(graph.size());
 		PriorityQueue<Edge> queue = createEdgePQ(graph);
 		SpanningTree tree = new SpanningTree();
-		Set<Integer> set;
+		Set<Integer> visited;
 		Edge edge;
 		
 		while (!queue.isEmpty())
 		{
 			edge = queue.poll();
-			set  = forest[edge.getTarget()];
+			visited  = forest[edge.getTarget()];
 			
-			if (!set.contains(edge.getSource()))
+			if (!visited.contains(edge.getSource()))
 			{
 				tree.addEdge(edge);
 				if (tree.size()+1 == graph.size()) break;
-				set.addAll(forest[edge.getSource()]);
-				for (int i : set) forest[i] = set;
+				visited.addAll(forest[edge.getSource()]);
+				for (int i : visited) forest[i] = visited;
 			}
 		}
 		

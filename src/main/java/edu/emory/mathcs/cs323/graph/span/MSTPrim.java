@@ -32,20 +32,20 @@ public class MSTPrim implements MSTAlgorithm
 	{
 		PriorityQueue<Edge> queue = new PriorityQueue<>();
 		SpanningTree tree = new SpanningTree();
-		Set<Integer> set = new HashSet<>();
+		Set<Integer> visited = new HashSet<>();
 		Edge edge;
 		
-		add(queue, set, graph, 0);
+		add(queue, visited, graph, 0);
 		
 		while (!queue.isEmpty())
 		{
 			edge = queue.poll();
 			
-			if (!set.contains(edge.getSource()))
+			if (!visited.contains(edge.getSource()))
 			{
 				tree.addEdge(edge);
 				if (tree.size()+1 == graph.size()) break;
-				add(queue, set, graph, edge.getSource());
+				add(queue, visited, graph, edge.getSource());
 			}
 		}
 		
@@ -55,6 +55,11 @@ public class MSTPrim implements MSTAlgorithm
 	private void add(PriorityQueue<Edge> queue, Set<Integer> visited, Graph graph, int target)
 	{
 		visited.add(target);
-		queue.addAll(graph.getIncomingEdges(target));
+		
+		for (Edge edge : graph.getIncomingEdges(target))
+		{
+			if (!visited.contains(edge.getSource()))
+				queue.add(edge);
+		}
 	}
 }
