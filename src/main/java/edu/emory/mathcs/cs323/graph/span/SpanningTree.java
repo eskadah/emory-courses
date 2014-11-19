@@ -16,6 +16,7 @@
 package edu.emory.mathcs.cs323.graph.span;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.Set;
 
 import edu.emory.mathcs.cs323.graph.Edge;
 import edu.emory.mathcs.utils.MathUtils;
+import edu.emory.mathcs.utils.StringUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -41,6 +43,7 @@ public class SpanningTree implements Comparable<SpanningTree>
 	public SpanningTree(SpanningTree tree)
 	{
 		l_edges = new ArrayList<>(tree.getEdges());
+		d_weight = tree.getTotalWeight();
 	}
 	
 	public int size()
@@ -176,5 +179,24 @@ public class SpanningTree implements Comparable<SpanningTree>
 		if      (diff > 0)	return 1;
 		else if (diff < 0)	return -1;
 		else 				return 0;
+	}
+	
+	public String getUndirectedSequence()
+	{
+		List<String> sequence = new ArrayList<>();
+		String s;
+		
+		for (Edge edge : l_edges)
+		{
+			if (edge.getSource() < edge.getTarget())
+				s = edge.getSource()+"-"+edge.getTarget();
+			else
+				s = edge.getTarget()+"-"+edge.getSource();
+			
+			sequence.add(s);
+		}
+		
+		Collections.sort(sequence);
+		return StringUtils.join(sequence, " ").trim();
 	}
 }
