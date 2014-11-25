@@ -16,7 +16,7 @@
 package edu.emory.mathcs.cs323.graph.span;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +25,6 @@ import java.util.Set;
 
 import edu.emory.mathcs.cs323.graph.Edge;
 import edu.emory.mathcs.utils.MathUtils;
-import edu.emory.mathcs.utils.StringUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -183,20 +182,29 @@ public class SpanningTree implements Comparable<SpanningTree>
 	
 	public String getUndirectedSequence()
 	{
-		List<String> sequence = new ArrayList<>();
-		String s;
+		int i, size = size(), min, max;
+		int[] array = new int[size];
+		Edge edge;
 		
-		for (Edge edge : l_edges)
+		for (i=0; i<size; i++)
 		{
-			if (edge.getSource() < edge.getTarget())
-				s = edge.getSource()+"-"+edge.getTarget();
-			else
-				s = edge.getTarget()+"-"+edge.getSource();
+			edge = l_edges.get(i);
 			
-			sequence.add(s);
+			if (edge.getSource() < edge.getTarget())
+			{
+				min = edge.getSource();
+				max = edge.getTarget();
+			}
+			else
+			{
+				min = edge.getTarget();
+				max = edge.getSource();
+			}
+			
+			array[i] = min*(size+1) + max;
 		}
 		
-		Collections.sort(sequence);
-		return StringUtils.join(sequence, " ").trim();
+		Arrays.sort(array);
+		return Arrays.toString(array);
 	}
 }

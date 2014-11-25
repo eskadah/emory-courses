@@ -52,10 +52,12 @@ public class Graph
 		return edges;
 	}
 	
-	public void setDirectedEdge(int source, int target, double weight)
+	public Edge setDirectedEdge(int source, int target, double weight)
 	{
 		List<Edge> edges = getIncomingEdges(target);
-		edges.add(new Edge(source, target, weight));
+		Edge edge = new Edge(source, target, weight);
+		edges.add(edge);
+		return edge;
 	}
 	
 	public void setUndirectedEdge(int source, int target, double weight)
