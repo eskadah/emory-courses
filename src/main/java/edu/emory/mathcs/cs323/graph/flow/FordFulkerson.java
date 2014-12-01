@@ -16,12 +16,9 @@
 package edu.emory.mathcs.cs323.graph.flow;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.junit.Test;
 
 import edu.emory.mathcs.cs323.graph.Edge;
 import edu.emory.mathcs.cs323.graph.Graph;
@@ -45,11 +42,22 @@ public class FordFulkerson extends MaximumFlow
 		
 		while ((path = getPathDF(graph, mf, new ArrayList<>(), new HashSet<>(), source, target)) != null)
 		{
-			min = Collections.min(path).getWeight();
+			min = getMin(mf, path);
 			mf.updateResidual(path, min);
 		}
 		
 		return mf;
+	}
+	
+	private double getMin(MaxFlow mf, List<Edge> path)
+	{
+		double min = mf.getResidual(path.get(0));
+		int i, size = path.size();
+
+		for (i=1; i<size; i++)
+			min = Math.min(min, mf.getResidual(path.get(i)));
+		
+		return min;
 	}
 	
 	private List<Edge> getPathDF(Graph graph, MaxFlow mf, List<Edge> path, Set<Integer> visited, int source, int target) 
@@ -60,8 +68,8 @@ public class FordFulkerson extends MaximumFlow
 		
 		for (Edge edge : graph.getIncomingEdges(target))
 		{
-			if (visited.contains(edge.getSource())) continue;			// cycle
-			if (edge.getWeight() - mf.getResidual(edge) <= 0) continue;	// no capacity
+			if (visited.contains(edge.getSource())) continue;	// cycle
+			if (mf.getResidual(edge) <= 0) continue;			// no capacity
 			list = new ArrayList<Edge>(path);
 			set  = new HashSet<Integer>(visited);
 			add(list, set, edge);
@@ -77,25 +85,5 @@ public class FordFulkerson extends MaximumFlow
 	{
 		path.add(edge);
 		visited.add(edge.getSource());
-	}
-	
-	@Test
-	public void test()
-	{
-		Graph graph = new Graph(6);
-		
-		graph.setDirectedEdge(0, 1, 4);
-		graph.setDirectedEdge(0, 2, 2);
-		graph.setDirectedEdge(1, 3, 3);
-		graph.setDirectedEdge(2, 3, 2);
-		graph.setDirectedEdge(2, 4, 3);
-		graph.setDirectedEdge(3, 2, 1);
-		graph.setDirectedEdge(3, 5, 2);
-		graph.setDirectedEdge(4, 5, 4);
-		
-		FordFulkerson n = new FordFulkerson();
-		MaxFlow mf = n.getMaximumFlow(graph, 0, 5);
-		System.out.println(mf.getFlow());
-		System.out.println(mf.getEdges().toString());
 	}
 }

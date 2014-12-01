@@ -55,7 +55,7 @@ public class MaxFlow
 	
 	public double getResidual(Edge edge)
 	{
-		return m_residuals.get(edge);
+		return edge.getWeight() - m_residuals.get(edge);
 	}
 	
 	public double getFlow()
