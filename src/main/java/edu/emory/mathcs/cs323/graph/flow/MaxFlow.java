@@ -47,10 +47,13 @@ public class MaxFlow
 
 	public void updateResidual(List<Edge> path, double flow)
 	{
-		for (Edge edge : path)
-			m_residuals.put(edge, m_residuals.get(edge)+flow);
-		
+		for (Edge edge : path) updateResidual(edge, flow);
 		d_flow += flow;
+	}
+	
+	public void updateResidual(Edge edge, double flow)
+	{
+		m_residuals.put(edge, m_residuals.get(edge)+flow);
 	}
 	
 	public double getResidual(Edge edge)

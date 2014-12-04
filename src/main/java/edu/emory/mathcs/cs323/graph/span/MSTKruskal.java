@@ -39,7 +39,7 @@ public class MSTKruskal implements MSTAlgorithm
 		while (!queue.isEmpty())
 		{
 			edge = queue.poll();
-			visited  = forest[edge.getTarget()];
+			visited = forest[edge.getTarget()];
 			
 			if (!visited.contains(edge.getSource()))
 			{
@@ -65,8 +65,8 @@ public class MSTKruskal implements MSTAlgorithm
 	{
 		PriorityQueue<Edge> queue = new PriorityQueue<>();
 		
-		for (int i=0; i<graph.size(); i++)
-			queue.addAll(graph.getIncomingEdges(i));
+		for (Edge edge : graph.getAllEdges())
+			queue.add(edge);
 		
 		return queue;
 	}

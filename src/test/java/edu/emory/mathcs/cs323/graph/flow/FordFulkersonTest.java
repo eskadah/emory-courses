@@ -15,6 +15,7 @@
  */
 package edu.emory.mathcs.cs323.graph.flow;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.emory.mathcs.cs323.graph.Graph;
@@ -25,6 +26,7 @@ import edu.emory.mathcs.cs323.graph.Graph;
 public class FordFulkersonTest
 {
 	@Test
+	@Ignore
 	public void test()
 	{
 		Graph graph = new Graph(6);
@@ -54,4 +56,23 @@ public class FordFulkersonTest
 		System.out.println(mf.getFlow());
 		System.out.println(mf.getEdges().toString());		
 	}
+	
+	@Test
+	public void test2()
+	{
+		Graph graph = new Graph(6);
+		
+		graph.setUndirectedEdge(0, 1, 1);
+		graph.setUndirectedEdge(0, 2, 2);
+		graph.setUndirectedEdge(1, 3, 2);
+		graph.setUndirectedEdge(1, 4, 2);
+		graph.setUndirectedEdge(2, 3, 2);
+		graph.setUndirectedEdge(3, 5, 1);
+		graph.setUndirectedEdge(4, 5, 2);
+		
+		FordFulkerson n = new FordFulkerson();
+		MaxFlow mf = n.getMaximumFlow(graph, 0, 5);
+		System.out.println(mf.getFlow());
+		System.out.println(mf.getEdges().toString());
+	}	
 }

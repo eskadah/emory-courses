@@ -180,6 +180,8 @@ public class SpanningTree implements Comparable<SpanningTree>
 		else 				return 0;
 	}
 	
+	
+	
 	public String getUndirectedSequence()
 	{
 		int i, size = size(), min, max;
