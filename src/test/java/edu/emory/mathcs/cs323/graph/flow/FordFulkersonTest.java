@@ -74,5 +74,29 @@ public class FordFulkersonTest
 		MaxFlow mf = n.getMaximumFlow(graph, 0, 5);
 		System.out.println(mf.getFlow());
 		System.out.println(mf.getEdges().toString());
-	}	
+	}
+	
+	@Test
+	public void test3()
+	{
+		Graph graph = new Graph(9);
+		
+		graph.setUndirectedEdge(1, 2, 12);
+		graph.setUndirectedEdge(1, 3, 5);
+		graph.setUndirectedEdge(1, 4, 8);
+		graph.setUndirectedEdge(2, 4, 9);
+		graph.setUndirectedEdge(2, 5, 3);
+		graph.setUndirectedEdge(2, 6, 9);
+		graph.setUndirectedEdge(3, 6, 18);
+		graph.setUndirectedEdge(4, 5, 4);
+		graph.setUndirectedEdge(4, 7, 47);
+		graph.setUndirectedEdge(5, 8, 13);
+		graph.setUndirectedEdge(6, 8, 26);
+		graph.setUndirectedEdge(7, 8, 34);
+		
+		FordFulkerson n = new FordFulkerson();
+		MaxFlow mf = n.getMaximumFlow(graph, 1, 8);
+		System.out.println(mf.getFlow());
+		System.out.println(mf.getEdges().toString());
+	}
 }
